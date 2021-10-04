@@ -1,0 +1,55 @@
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+
+<hr>
+<center><h1> INDEX </h1></center>
+<hr>
+
+
+
+<ul>
+<li><div align="justify" class="main"><a href="./md_files/task_0/Task_0.md">Task 0</a></div>
+<ul>
+	<li><div align="justify" class="main"><a href="./md_files/task_0/installation.mdown">Introduction & Installation</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_0/getting_started.mdown">Getting started with Quartus</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_0/pin_assignment.mdown">Pin assignment</span></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_0/verification.mdown">Verifying Installation</a></div></li>
+</ul>
+</li>
+<li><div align="justify" class="main"><a href="./md_files/task_1/Task_1.md">Task 1</a></div>
+<ul>
+	<li><div align="justify" class="main"><a href="./md_files/task_1/Task_1_A.md">Task 1 A : Combinational Circuit</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_1/Task_1_B.md">Task 1 B : Sequential Circuit</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_1/Task_1_C.md">Task 1 C : Finite State Machine</span></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_1/Task_1_D.md">Task 1 D : Frequency Scaling and PWM</a></div></li>
+</ul>
+</li>
+<li><div align="justify" class="main"><a href="./md_files/task_2/Task_2.mdown">Task 2</a></div>
+<ul>
+	<li><div align="justify" class="main"><a href="./md_files/task_2/Task_2_A.mdown">Task 2 A : Analog to Digital Converter</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_2/Task_2_B.mdown">Task 2 B : Universal Asynchronous Receiver Transmitter</a></div></li>
+</ul>
+</li>
+<li><div align="justify" class="main"><a href="./md_files/task_3/Task_3.md">Task 3</a></div>
+<ul>
+	<li><div align="justify" class="main"><a href="./md_files/task_3/Flex_instructions.mdown">Task 3 A : Flex Printing & Block Making</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_3/hardware_test.mdown">Task 3 B : Hardware Testing</a></div></li>
+	<li><div align="justify" class="main"><a href="./md_files/task_3/bot_building.mdown">Task 3 C : Bot Building</a></div></li>
+</ul>
+</li>
+<li><div align="justify" class="main"><a href="./md_files/additional_resources/add_ons.md">Additional Resources</a></div></li>
+</ul>

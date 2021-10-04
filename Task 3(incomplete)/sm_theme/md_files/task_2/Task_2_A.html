@@ -1,0 +1,449 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Task 2 A : Analog to Digital Converter - eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="../../favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../../theme_intro.html">Soil Monitoring Bot</a></li><li class="chapter-item "><a href="../../TOC.html">Table of Contents</a></li><li class="chapter-item "><a href="../../md_files/task_0/Task_0.html">Task 0</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_0/installation.html">Introduction &amp; Installation</a></li><li class="chapter-item "><a href="../../md_files/task_0/getting_started.html">Getting started with Quartus</a></li><li class="chapter-item "><a href="../../md_files/task_0/pin_assignment.html">Pin assignment</a></li><li class="chapter-item "><a href="../../md_files/task_0/verification.html">Verifying Installation</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1.html">Task 1</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_1/Task_1_A.html">Task 1 A : Combinational Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_B.html">Task 1 B : Sequential Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_C.html">Task 1 C : Finite State Machine</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_D.html">Task 1 D : Frequency Scaling and PWM</a></li></ol></li><li class="chapter-item expanded "><a href="../../md_files/task_2/Task_2.html">Task 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../md_files/task_2/Task_2_A.html" class="active">Task 2 A : Analog to Digital Converter</a></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2_B.html">Task 2 B : Universal Asynchronous Receiver Transmitter</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_3/Task_3.html">Task 3</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_3/Flex_instructions.html">Task 3 A : Flex Printing &amp; Block Making</a></li><li class="chapter-item "><a href="../../md_files/task_3/hardware_test.html">Task 3 B : Hardware Testing</a></li><li class="chapter-item "><a href="../../md_files/task_3/bot_building.html">Task 3 C : Bot Building</a></li></ol></li><li class="chapter-item "><a href="../../md_files/additional_resources/add_ons.html">Additional Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <style>
+.back{
+	position: fixed;
+	width: 300px;
+	height: 300px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.05;
+	}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+h1 {
+  text-align: center;
+}
+p.date {
+  text-align: right;
+}
+p.main {
+  text-align: justify;
+}
+
+</style>
+<center><h1><a class="header" href="#task-2-a--analog-to-digital-converter-adc" id="task-2-a--analog-to-digital-converter-adc">Task 2 A : Analog to Digital Converter (ADC)</a></h1></center>
+<hr>
+<center><h2><a class="header" href="#1-introduction" id="1-introduction">1. Introduction</a></h2></center>
+<hr>
+<p align="justify" class="main">
+In this theme, we will be using the De0 Nano development board which contains an  ADC128S022  low  power,  eight-channel  CMOS 12-bit analog-to-digital converter.  This ADC provides conversion throughput rates 
+of 50 ksps to 200 ksps.  It can be configured to accept up to eight input signals at inputs IN0 through IN7.  These eight input signals are connected to the 2x13 header, as 
+shown in figure below.  The remaining I/Os of the 2x13 header are a DC +3.3V (VCC33), a GND and 13 pins, which are connected directly to the Cyclone IV E device.
+<blockquote>
+<p><em><strong>Important :</strong> Read <a href="./Task_2_A/Using_DE0-Nano_ADC.pdf">Using DE0-Nano ADC</a> as this document contains necessary information for successfully completing this task. This is <strong>mandatory</strong>.</em> </p>
+</blockquote>
+<p align="center">
+  <img src="./Task_2_A/ADC_Wiring.png">
+</p>
+<p align="justify" class="main">
+In this task, we will be designing a <b>3-channel ADC Control module</b> which will send channel addresses to on-board ADC128S022 and fetch digital data of analog value present on that corresponding channel. The on-board ADC128S022 will convert it to its equivalent 12-bit digital value which 
+can be read by the FPGA (using ADC Control module).</p>
+<p align="justify" class="main">
+We  will  be  communicating  with  the  ADC128S022  using  SPI  Protocol. It operates in a 16 cycle frame. The user is required to provide the SCLK, CS and DIN to 
+the ADC128S022 and capture the DOUT signal as it is serially transmitted.</p>
+<p align="center">
+  <img src="./Task_2_A/Timing_diagram.png">
+</p>
+<p align="justify" class="main">
+The  DOUT  signal  provides  the  12-bit  converted  value  of  the  selected channel.  On power-up,  channel  0  is  selected by default, while <b>subsequent reads  
+will  use  the  address provided in the previous operational frame</b>.  The data bits are transmitted in descending order, such that the highest-order bit is delivered first.  It is 
+captured by the user on the rising edge of SCLK.</p>
+<p align="justify" class="main">
+The DIN  signal is used to select the channel to be converted in the following frame. It is delivered in descending order, and is captured by the ADC128S022 on the positive 
+edges of SCLK. In order to avoid potential race conditions, the user should <b>generate DIN on the negative edges of SCLK</b>.</p>
+<p align="justify" class="main">
+CS should be lowered on the first falling edge of SCLK and raised on the last rising edge  of  an  operational  frame.  The  SCLK  frequency  is  limited  to  a  
+range  of  0.8  to 3.2 MHz in which the ADC will function correctly.</p>
+<hr>
+<center><h2><a class="header" href="#2-interpretation-of-adc-output-and-analog-input" id="2-interpretation-of-adc-output-and-analog-input">2. Interpretation of ADC output and Analog Input</a></h2></center>
+<hr>
+<p align="justify" class="main">
+ADC128S022 outputs  a  12-bit  value  based  on  the  analog voltage  at  its  channel. ADC  output  of <b>000000000000</b> corresponds to <b>0 V</b> and an output of <b>111111111111</b> corresponds to <b>3.3 V</b> (the  reference  voltage  of  the  ADC128S022  is  3.3 V,  hence  it's  maximum  digital output is for 3.3V).</p><br>
+Hence,<br>  
+<p>Maximum Input voltage = 3.3 V<br></p>
+<p>Highest Output value from ADC128S022 in decimal = 4095 (i.e. 111111111111 in binary)<br></p>
+<p>Voltage represented per LSB in Output (Resolution) = 3.3 V/4095 = <b>0.805 mV</b><br></p>
+<p align="justify" class="main">
+Now,  we  know  the  relation  between  the  ADC128S022 output  and  Voltage.  By simply multiplying the above value i.e. Resolution with the ADC128S022 output (in decimal), we can calculate the voltage at 
+the chosen input channel of the ADC.</p><br>
+<p><b>Example :</b></p>
+<p align="justify" class="main"><i>Suppose the output of ADC is '100011111100' (2300 in decimal) then, </i></p> 
+<p align="justify" class="main"><i>Analog Input = 0.805 mV*2300 = 1.85 V</i></p>
+<p align="justify" class="main"><i>Now suppose, analog input is 2.5 V then,</i></p>
+<p align="justify" class="main"><i>ADC output = 2.5/0.805 mV = 3105 in decimal = '110000100001' in binary.</i></p> 
+<p align="justify" class="main">
+<i>Now, you know how to convert the analog input voltage to corresponding 12-bit digital output and vice-versa.</i></p><br>
+<hr>
+<center><h2><a class="header" href="#3-problem-statement" id="3-problem-statement">3. Problem Statement</a></h2></center>
+<hr>
+<p align="justify" class="main">
+In this task, you will be designing a control module which controls the on-board ADC.
+Basically, this "control module" sends necessary commands to the on-board ADC which is ADC128S022 and fetches the digital output. Your designed control module should have following inputs and outputs :
+</p>  
+<table><thead><tr><th>Inputs</th><th>Outputs</th></tr></thead><tbody>
+<tr><td>clk_50</td><td>adc_cs_n</td></tr>
+<tr><td>dout</td><td>din</td></tr>
+<tr><td>-</td><td>adc_sck</td></tr>
+<tr><td>-</td><td>d_out_ch5, d_out_ch6, d_out_ch7 (12-bit)</td></tr>
+<tr><td>-</td><td>data_frame (optional)</td></tr>
+</tbody></table>
+<ol>
+<li><strong>clk_50</strong> : This is 50MHz clock input to the adc control module. All other signals must be synchronized w.r.t this clock.</li>
+<li><strong>dout</strong> : This is converted binary data which is received serially by adc control module. This is the digital output from ADC128S022 (outputted serially), so your designed module reads this serial data and outputs 12-bit data (parallel data) on d_out_chX output bus.</li>
+<li><strong>adc_cs_n</strong> : Chip Select pin. When low selects the on-board ADC128S022.</li>
+<li><strong>din</strong> : This output is used to give <strong>ADC_ADDR</strong> input to on-board ADC128S022. Refer <a href="http://www.ti.com/lit/ds/symlink/adc128s022.pdf">Datasheet</a> for more information. <strong>Use channels 5, 6 &amp; 7</strong>.</li>
+<li><strong>adc_sck</strong> : This output is given as input to ADC128S022 and it serves as a device clock for the ADC128S022. <strong>This clock signal should be 2.5MHz</strong>.</li>
+<li><strong>d_out_chX</strong> (X = 5,6,7) : 12-bit binary output for channel X i.e. for ADC channel 5 the converted binary output will be available at d_out_ch5. </li>
+<li><strong>data_frame</strong> : This is a 2-bit bus which is used only to represent 16-cycle operational frame. This is optional, but it is recommended to use this signal for better visualization of signals.</li>
+</ol>
+<blockquote>
+<p><em><strong>Important :</strong></em></p>
+<ul>
+<li><em>For this task <strong>adc_sck = 2.5MHz</strong>, <strong>ADC channels = 5, 6 &amp; 7</strong> should be followed strictly.</em></li>
+<li><em>You are not allowed to use any code or part of the code which is available online.</em></li>
+<li><em>You are not allowed to use Nios architecture /IP blocks.</em></li>
+<li><em>You must only refer <a href="./Task_2_A/Using_DE0-Nano_ADC.pdf">Using DE0-Nano ADC</a>.</em></li>
+<li><em>Additionally you can also refer to <a href="http://www.ti.com/lit/ds/symlink/adc128s022.pdf">ADC128S022 datasheet</a>.</em></li>
+</ul>
+</blockquote>
+<hr>
+Project File : <u><a href="./project_files/adc_control.zip" download>Download TASK 2 A</a></u>
+<hr>
+<p><b>Steps :</b> </p>
+<ol>
+<li><p align="justify" class="main">Open <b>adc_control.qpf</b>. You will find <b>adc_control.v</b> file where module is defined. <b>Do not make any changes to input and output ports</b>. Firstly, without writing any logic, perform <b>Analysis & Synthesis (Ctrl+K)</b>. Now, Run <b>RTL Simulation</b>. You will see some waveforms in ModelSim window, these are the expected outputs.</p><a name = "SD"></a></li>
+<li><p align="justify" class="main">Now, implement adc control module which outputs correct <b>din & adc_sck</b> signals, reads <b>dout</b> correctly and outputs the correct 12-bit data on correct output bus <b>d_out_chX</b>.
+You can create other verilog files in the project but <b>adc_control.v should be the Top Level Entity</b>.</p><a name = "SD"></a></li>
+<p>Refer below image to write logic for 3-channel ADC control module.</p>
+<p align="center">
+  <img src="./Task_2_A/wave_table.png">
+</p>
+<blockquote>
+<p><em><strong>Note :</strong> In above image clock is actually <strong>adc_sck</strong> and data_ch5 = d_out_ch5 (similarly for other two outputs). Open the image in New Tab to view it better.</em></p>
+</blockquote>
+<blockquote>
+<p><em><strong>Important Reminder :</strong> For this task <strong>adc_sck = 2.5MHz</strong>, <strong>ADC channels = 5, 6 &amp; 7</strong> should be followed strictly.</em></p>
+</blockquote>
+<li><p align="justify" class="main">After completing, run <b>RTL Simulation</b>. Actual output should match desired output. For Eg : <b>adc_sck</b> is <b>actual output</b> and <b>adc_sck_exp</b> is the <b>desired or expected output</b>.
+ You can also check ModelSim Transcript window for "No errors" or "Errors" message.</p><a name = "SD"></a></li>
+</ol>
+<br />
+<p align=center><b>…BestWishes!…</b></p>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../md_files/task_2/Task_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../md_files/task_2/Task_2_B.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../md_files/task_2/Task_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../md_files/task_2/Task_2_B.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Getting started with Quartus - eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="../../favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../../theme_intro.html">Soil Monitoring Bot</a></li><li class="chapter-item "><a href="../../TOC.html">Table of Contents</a></li><li class="chapter-item expanded "><a href="../../md_files/task_0/Task_0.html">Task 0</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_0/installation.html">Introduction &amp; Installation</a></li><li class="chapter-item expanded "><a href="../../md_files/task_0/getting_started.html" class="active">Getting started with Quartus</a></li><li class="chapter-item "><a href="../../md_files/task_0/pin_assignment.html">Pin assignment</a></li><li class="chapter-item "><a href="../../md_files/task_0/verification.html">Verifying Installation</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1.html">Task 1</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_1/Task_1_A.html">Task 1 A : Combinational Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_B.html">Task 1 B : Sequential Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_C.html">Task 1 C : Finite State Machine</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_D.html">Task 1 D : Frequency Scaling and PWM</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2.html">Task 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_2/Task_2_A.html">Task 2 A : Analog to Digital Converter</a></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2_B.html">Task 2 B : Universal Asynchronous Receiver Transmitter</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_3/Task_3.html">Task 3</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_3/Flex_instructions.html">Task 3 A : Flex Printing &amp; Block Making</a></li><li class="chapter-item "><a href="../../md_files/task_3/hardware_test.html">Task 3 B : Hardware Testing</a></li><li class="chapter-item "><a href="../../md_files/task_3/bot_building.html">Task 3 C : Bot Building</a></li></ol></li><li class="chapter-item "><a href="../../md_files/additional_resources/add_ons.html">Additional Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<h2><a class="header" href="#center2-getting-started-with-quartuscenter" id="center2-getting-started-with-quartuscenter"><center>2. Getting started with Quartus</center></a></h2>
+<hr>
+<h3><a class="header" href="#1-creating-a-new-project" id="1-creating-a-new-project">1. Creating a New project</a></h3>
+<div align="justify" class="main">In this section, we will learn how to create a new project using the Quartus software. As part
+of this, we will create multiple files for our designs, for testing our designs, and for downloading
+our design to the DE0-Nano board etc. To keep things simple, we will implement a simple
+AND gate design and create Test Bench to simulate design using ModelSim.<br>
+<br>To create a new project in Quartus Lite follow the below steps:</div>
+<blockquote>
+<p><em><strong>Note :</strong> Follow the steps carefully as once the project is created some settings cannot be changed.</em></p>
+</blockquote>
+<ol>
+<li><div align="justify" class="main">Click <b>File → New Project Wizard</b> to quickly setup a new project.
+Alternatively, <b>New Project Wizard</b> can be opened from the <b>Home Tab</b> that is seen
+when Quartus is opened.</div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create1.png">
+</p> 
+<li><div align="justify" class="main">Click <b>Next</b> on the Dialog Box and select the <b>Directory</b> in which the project is to be
+saved. Give the <b>Project Name</b> and Click on <b>Next.</b></div></li>
+<blockquote>
+<p><em><strong>Note :</strong> In below image the directory chosen is <strong>&quot;C:\Users\QuartusProjects\First_Project&quot;</strong>, but you must create a different folder named <strong>AND_GATE</strong> anywhere on your local machine and choose this directory (<strong>Do not create this folder in C drive</strong>). Also, name the project as <strong>AND_GATE</strong> as you will submit this project folder as Task 0 submission. Top Level Module will be default i.e. <strong>AND_GATE</strong></em></p>
+</blockquote>
+<p align="center">
+  <img src="./images/InstallationImages/Create2.png">
+</p> 
+<li><div align="justify" class="main">Click on <b>Empty Project.</b> Selecting this option will allow us to manually specify the additional files and libraries, device family and EDA(Electronic Design Automation) tool setting.</div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create3.png">
+</p> 
+<li><div align="justify" class="main">In <b>Add Files</b> section, click on <b>Next.</b> For this project we don’t require any
+additional files, so now we can continue without adding any file in our project.</div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create4.png">
+</p> 
+<li><div align="justify" class="main">Choose the FPGA Device that is being used. Click on <b>Family</b> and choose the <b>Cyclone IV E.</b> Select <b>EP4CE22F17C6</b> from the <b>Available Device.</b> We can also search the device using the options provided in right side of the window.</div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create5.png">
+</p> 
+<li><div align="justify" class="main">Select the tools used in this project. For <b>Simulation</b> tool name choose <b>ModelSim-Altera.</b>  Also, choose simulation format as <b>Verilog HDL.</b></div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create6.png">
+</p> 
+<li><div align="justify" class="main">Review the summary, you can change the entries by Clicking on <b>Back</b> as we can not change these setting later in our project and make sure all the entries are correct. Click on <b>Finish</b> to successfully create a New Project. </div></li>
+<p align="center">
+  <img src="./images/InstallationImages/Create7.png">
+</p> 
+</ol>
+<h3><a class="header" href="#2-creating-new-files-in-the-project" id="2-creating-new-files-in-the-project"> 2. Creating new files in the project</a></h3>
+<div align="justify" class="main">In the previous steps, we created a directory and selected device families and simulation tool to set up a Quartus project, which tells the tool about the board we are using. We now need
+to add some actual circuitry to this project. We will create a simple design of an AND gate and this design will have two data inputs <b>A</b>
+and <b>B</b> and a single output <b>C</b>.</div><br>
+Follow the below steps to add necessary file in our project:
+<ol>
+<li> Click on <b>File → New.</b></li>
+<p align="center">
+  <img src="./images/NewChangesImages/andgate9.png">
+</p> 
+<li><div align="justify" class="main">Select <b>Verilog HDL</b>.</div></li>
+<p align="center">
+  <img src="./images/NewChangesImages/img2.jpg">
+</p> 
+<li><div align="justify" class="main">Write down the below code in the newly created file. Also note that Verilog HDL is case sensitive.</div></li><br>
+<p><b>Verilog Code for AND gate</b></p>
+<pre><code>module AND_GATE
+(
+	input A,B,        // defining inputs A and B of AND gate 
+	output C          // defining output of AND gate
+);
+
+assign C = A &amp; B;   // Logic implementation
+endmodule
+</code></pre>
+<li>After completing the code click on <b>File → Save As.</b></li>  
+<li><div align="justify" class="main">Enter the name of file (it should be same as module name i.e. AND_GATE), enter correct file extension. For Verilog HDL file extension is <b>.v</b> and then Click on <b>Save.</b></div></li>
+</ol>
+<h3><a class="header" href="#3-compiling-the-project-files" id="3-compiling-the-project-files">3. Compiling the Project Files</a></h3>
+<ol>
+<li><div align="justify" class="main">To compile the file, the file must be the top-level enity of the project. We can assign the <b>AND_GATE.v</b> file as top-level entity by <b>Project → Set as Top-Level Entity</b> option in toolbar.</div></li>
+<p align="center">
+  <img src="./images/NewChangesImages/assign1.png">
+</p> 
+<li><div align="justify" class="main">Generate synthesis or final compilation results by running the following commands: Click <b>Start Compilation</b> shown in the figure below (red box) to generate final compilation results.</div></li>
+<p align="center">
+  <img src="./images/NewChangesImages/assign2.png">
+</p> 
+</ol>
+<p><br><br></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../md_files/task_0/installation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../md_files/task_0/pin_assignment.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../md_files/task_0/installation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../md_files/task_0/pin_assignment.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

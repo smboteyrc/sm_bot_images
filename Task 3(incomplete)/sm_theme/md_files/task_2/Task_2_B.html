@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Task 2 B : Universal Asynchronous Receiver Transmitter - eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="../../favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../../theme_intro.html">Soil Monitoring Bot</a></li><li class="chapter-item "><a href="../../TOC.html">Table of Contents</a></li><li class="chapter-item "><a href="../../md_files/task_0/Task_0.html">Task 0</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_0/installation.html">Introduction &amp; Installation</a></li><li class="chapter-item "><a href="../../md_files/task_0/getting_started.html">Getting started with Quartus</a></li><li class="chapter-item "><a href="../../md_files/task_0/pin_assignment.html">Pin assignment</a></li><li class="chapter-item "><a href="../../md_files/task_0/verification.html">Verifying Installation</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1.html">Task 1</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_1/Task_1_A.html">Task 1 A : Combinational Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_B.html">Task 1 B : Sequential Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_C.html">Task 1 C : Finite State Machine</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_D.html">Task 1 D : Frequency Scaling and PWM</a></li></ol></li><li class="chapter-item expanded "><a href="../../md_files/task_2/Task_2.html">Task 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_2/Task_2_A.html">Task 2 A : Analog to Digital Converter</a></li><li class="chapter-item expanded "><a href="../../md_files/task_2/Task_2_B.html" class="active">Task 2 B : Universal Asynchronous Receiver Transmitter</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_3/Task_3.html">Task 3</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_3/Flex_instructions.html">Task 3 A : Flex Printing &amp; Block Making</a></li><li class="chapter-item "><a href="../../md_files/task_3/hardware_test.html">Task 3 B : Hardware Testing</a></li><li class="chapter-item "><a href="../../md_files/task_3/bot_building.html">Task 3 C : Bot Building</a></li></ol></li><li class="chapter-item "><a href="../../md_files/additional_resources/add_ons.html">Additional Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <style>
+.back{
+	position: fixed;
+	width: 300px;
+	height: 300px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.05;
+	}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+h1 {
+  text-align: center;
+}
+p.date {
+  text-align: right;
+}
+p.main {
+  text-align: justify;
+}
+
+</style>
+<center><u> <h2><a class="header" href="#" id=""> </a></h2></u></center>
+<center><h1><a class="header" href="#task-2-b--universal-asynchronous-receiver-transmitter-uart" id="task-2-b--universal-asynchronous-receiver-transmitter-uart">Task 2 B : Universal Asynchronous Receiver-Transmitter (UART) </a></h1></center></u>
+<hr>
+<h2><a class="header" href="#center1-introductioncenter" id="center1-introductioncenter"><center>1. Introduction</center></a></h2>
+<hr>
+<h3><a class="header" href="#center11----universal-asynchronous-receiver-transmitter-protocolcenter" id="center11----universal-asynchronous-receiver-transmitter-protocolcenter"><center>1.1    Universal Asynchronous Receiver-Transmitter Protocol</center></a></h3>
+<p align="justify" class="main">
+Universal Asynchronous Receiver-Transmitter (UART) is one of the simplest and 
+oldest forms
+of  device-to-device  digital  communication.    UART  is  a  serial  
+communication  protocol  that
+performs  parallel  to  serial  data  conversion  at  the  transmitter  side  
+and  serial  to  parallel  data
+conversion at the receiver side.</p>
+<p align="justify" class="main">
+UART transmitter and receiver works asynchronously, which means there is no 
+clock signal
+to synchronize the output of bits from the transmitting UART to the sampling of 
+bits by the
+receiving UART. Instead of a clock signal, the transmitting UART adds Start and 
+Stop Bits to
+the Data Packet being transferred.  These bits define the beginning and end of 
+the Data Packet
+so the receiving UART knows when to start reading the bits. When the receiving 
+UART detects
+a Start Bit, it starts to read the incoming bits at a specific frequency known 
+as the baud rate.</p>
+<h3><a class="header" href="#center12----working-of-uartcenter" id="center12----working-of-uartcenter"><center>1.2    Working of UART</center></a></h3>
+<p align="justify" class="main">
+One UART device consists of two parts : the first is Transmitter and the other is Receiver. 
+It consists of two lines for data transmission, RX and TX, one in each direction as shown in the below figure.</p>
+<p align="center">
+  <img src="./Task_2_B/Diagram.png">
+</p>
+<h4><a class="header" href="#121----data-packet" id="121----data-packet">1.2.1    Data Packet</a></h4>
+<p align="justify" class="main">
+The  UART  devices  receive  and  transmit  the  data  in  serial  manner.  
+The  communication
+takes place in a particular data format i.e the data is sent and received in a 
+Data Packet.  Each
+Data  Packet  consists  of  a  Start  Bit  followed  by  Data  Bits  (usually  5 
+ to  9-bits  long)  and  then
+Parity Bit and at the end is the Stop Bit.  The figure below shows the structure of 
+the Data Packet
+used in UART communication.</p>
+<p align="center">
+<img src="./Task_2_B/UART-Communication.jpg">
+</p> 
+<ul>
+<li>Start Bit</li>
+<p align="justify" class="main">
+When  the  transmitter  is  not  sending  any  data  the  transmission  line  
+is  held  at  a  high
+voltage  level  that  is  at  logic  ’1’.   To  start  the  transfer  of  data  
+the  UART  Transmitter
+pulls down the voltage to logic ’0’ for one clock cycle.  When the UART 
+Receiver detects
+this change from logic ’1’ to logic ’0’ it starts sampling the main Data Bits 
+at a particular
+interval.   This  transition  from  high  to  low  for  one  clock  is  
+indicated  as  the  Start  Bit
+period.</p>
+<li>Data Bits</li>
+<p align="justify" class="main">
+Once the Start Bit is detected the data that comes after it in the Data Packet 
+is the actual
+data.  Its length can be up to 5-bits to 9-bits long.  In this task we 
+will be using a
+8-bit long data frame.  In most cases, the <b>data is sent with the least 
+significant bit first</b>.</p>
+<li>Parity Bit</li>
+<p align="justify" class="main">
+Parity Bit is used to check if the data that comes to the UART Receiver of one device is the same as the data that is sent by the UART Transmitter of another device. 
+Bits can be changed by electromagnetic radiation, mismatched baud rates, or long distance data transfers. 
+Parity Bit is added after the Data Bits in the Data Packet. 
+The Parity Bit can be 0 (even parity) or 1 (odd parity) depending upon the number of ’1’ in the data frame, if there are even numbers of 1 in the data frame then it is even parity or else it is odd. 
+In this task, we will not use the Parity Bit in the data frame. </p>
+<li>Stop Bit</li>
+<p align="justify" class="main">
+This bit marks the end of the Data Packet, as we know that the transmission 
+line is pulled
+down from high to low to indicate the Start Bit, so at the end of the Data Packet 
+we have to
+make the transmission line high again.  The Stop Bit is always high.</p>
+</ul>
+<h4><a class="header" href="#122----configuring-the-uart" id="122----configuring-the-uart">1.2.2    Configuring the UART</a></h4>
+<p align="justify" class="main">
+Now that we have seen the structure of the Data Packet that is used for 
+serial communication between two UART devices, let us now take a look at 
+some important parameters that need to be considered while transmitting and receiving the data. 
+These parameters must be the same for both the UART devices that are communicating with each 
+other because there is no clock involved while the communication takes place (asynchronous communication). 
+There are five parameters that we will take into consideration for defining the communication method.</p>
+<ul>
+<li>Baud Rate</li>
+<p align="justify" class="main">
+The Baud Rate will specify the speed of the data that is sent over the serial 
+line between
+the  transmitter  and  receiver.   It’s  usually  expressed  in  units  of  
+bits  per  second  (bps).   This  parameter  can  be  used  to  calculate  how  long  a  single  
+bit  will  last  while
+transmitting. This value determines how long the transmitter holds a serial line 
+high/low
+or at what period the receiving device samples its 
+line.  One  of the more common baud
+rates are 9600, 38400, 57600, and 115200.</p>
+<p align="justify" class="main">
+Assume that we select a baud rate of 115200 for transmitting and receiving the 
+data, and
+the clock frequency used in UART transmitter and receiver is 50MHz.  Then the 
+duration
+of a single bit and number of clock cycles that will be passed during this 
+period can be
+calculated as per the below formula. 
+<blockquote>
+<p><em><strong>Note :</strong> The clock used in UART Transmitter and Receiver is specifically for their internal operation and <b>not for transmission between them</b>.</em> </p></p>
+</blockquote>
+<p>Duration Of Bit = 1/BaudRate = 1/115200 ≈ 8680ns </p>
+<p>Clocks Per Bit = Duration Of Bit/Time Period of Clock = 8680ns/20ns = 434</p>
+<p>OR</p>
+<p>Clocks Per Bit = Clock Period/BuadRate = 50M/115200 ≈ 434</p>
+<p>Clock Per Bit represents the clock cycles that a single bit must remains on the 
+serial line.</p>
+<li>Number of Data Bits</li>
+<p align="justify" class="main">
+This parameter defines the number of data bits in the data packet between the 
+Start and
+Stop  bit. We  will
+consider 8-bits of data in our data packet for this task.</p>
+<li>Parity Bit</li>
+<p align="justify" class="main">
+The parity bit in the data frame of the UART communication tells the receiving 
+device
+if there is any error in the Data Bits.  The parity mode can be set for even 
+parity or odd parity. In this task parity bit is not used.</p>
+<li>Stop Bit</li>
+<p align="justify" class="main">
+The Stop Bits are at the end of the data frame and indicate the end of that 
+frame for
+the  receiver. There  are  many  standards  where  we  can  use  0,  1  or  2  
+Stop  Bit  according  to
+the distance or environment in which UART communication takes place.
+In this task we will use 2 Stop Bits in our Data Packet.</p>
+<p><strong>Final UART parameters for this task :</strong></p>
+<table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>
+<tr><td>Baud Rate</td><td>115200</td></tr>
+<tr><td>No of Data Bits</td><td>8-bits</td></tr>
+<tr><td>Parity Bit</td><td>None</td></tr>
+<tr><td>Stop Bit</td><td>2-bits</td></tr>
+</tbody></table>
+<br>
+<h3><a class="header" href="#center13----serial-data-transmission--receptioncenter" id="center13----serial-data-transmission--receptioncenter"><center>1.3    Serial Data Transmission & Reception</center></a></h3>
+<p align="justify" class="main">
+The below diagram shows the serial data that UART Transmitter transmits on the 
+transmission
+line from the Start Bit to the Stop Bit.  The diagram also shows the data 
+received by the UART
+Receiver and also indicates the position of sampling of Data Bits from the 
+data packet.</p>
+<p align="center">
+<img src="./Task_2_B/uartsignal.png">
+</p> 
+<p align="justify" class="main">
+Now, we have learnt about the working of transmitter and receiver along with the 
+parameters
+that need to be configured between them.</p>
+<hr>
+<h2><a class="header" href="#center2-problem-statementcenter" id="center2-problem-statementcenter"><center>2. Problem Statement</center></a></h2>
+<hr>
+<p align="justify" class="main">
+In this task, you will be designing <b>UART Transmitter</b>. This UART Transmitter will have same parameters as described above.</p>
+<table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>
+<tr><td>Baud Rate</td><td>115200</td></tr>
+<tr><td>No of Data Bits</td><td>8-bits</td></tr>
+<tr><td>Parity Bit</td><td>None</td></tr>
+<tr><td>Stop Bit</td><td>2-bits</td></tr>
+</tbody></table>
+<p>The UART Transmitter should transmit &quot;SMxx&quot;, where xx are last two digits of your Team-ID.</p>
+<p>For Eg :</p>
+<ol>
+<li>If your Team-ID is <strong>2673</strong> then your UART Transmitter should transmit <strong>&quot;SM73&quot;</strong>. </li>
+<li>If your Team-ID is <strong>0507</strong> then your UART Transmitter should transmit <strong>&quot;SM07&quot;</strong>.</li>
+<li>If your Team-ID is <strong>6000</strong> then your UART Transmitter should transmit <strong>&quot;SM00&quot;</strong>.</li>
+</ol>
+<blockquote>
+<p><em><strong>Important :</strong></em> </p>
+<ul>
+<li><em>The clock input to UART transmitter module will be <strong>50 MHz</strong>.</em></li>
+<li><em>Output of UART transmitter module will be <strong>tx</strong> signal which outputs &quot;SMxx&quot; serially.</em> </li>
+<li><em>You can store &quot;SMxx&quot; string in a variable inside the UART transmitter verilog module.</em></li>
+</ul>
+</blockquote>
+<p>So, the UART transmitter module will have following input and output :</p>
+<table><thead><tr><th>Input</th><th>Output</th></tr></thead><tbody>
+<tr><td>clk_50M</td><td>tx</td></tr>
+</tbody></table>
+<hr>
+Project File : <u><a href="./project_files/uart.zip" download>Download TASK 2 B</a></u>
+<hr>
+<p><b>Steps :</b></p>
+<ol>
+<li><p align="justify" class="main">Open <b>sm_task2.exe</b> file which is present in the downloaded folder. Enter your Team-ID and click "Done". 
+<b>Only enter the numeric part of the Team-ID i.e. if your Team-ID is SM#2673 then enter 2673 or if your Team-ID is SM#0100 then enter 0100</b>. 
+Task wont be evaluated if this step is not followed.</p><a name = "SD"></a></li>
+<p align="center">
+  <img src="./Task_2_B/python_exe.jpg">
+</p>
+<li><p align="justify" class="main">Now open <b>uart.qpf</b>. You will find <b>uart.v</b> file where module is defined. 
+<b>Do not make any changes to input and output ports</b>. 
+Firstly, without writing any logic, perform <b>Analysis & Synthesis (Ctrl+K)</b>. Now, Run <b>RTL Simulation</b>. 
+You will see some waveforms in ModelSim window, of these <b>tx_exp</b> signal is the expected output.</p><a name = "SD"></a></li>
+<li><p align="justify" class="main">Now, implement UART transmitter module which outputs correct data on <b>tx</b> signal. 
+You can create other verilog files in the project but <b>uart.v should be the Top Level Entity</b>.</p><a name = "SD"></a></li>
+<p>Refer below image to implement a <strong>State Machine</strong> which outputs correct data on tx signal.</p>
+<p align="center">
+  <img src="./Task_2_B/wave1.png">
+</p>
+<blockquote>
+<p><em><strong>Note :</strong></em></p>
+<ul>
+<li><em>Above image shows transmission of &quot;SM&quot; only.</em></li>
+<li><em>Red part of the image shows the sequence of bits in correct order for transmitting &quot;SM&quot;.</em></li>
+<li><em>Green part of the image can be used as a reference to design State Machine.</em></li>
+<li><em>We can see that the 2 Stop Bits are due to <strong>STOP BIT</strong> state followed by <strong>IDLE</strong> state.</em></li>
+<li><em>You are free to design a different state machine or complete the task without even implementing a state machine. It is recommended to design using state machine approach.</em></li>
+</ul>
+</blockquote>
+<li><p align="justify" class="main">After completing, run <b>RTL Simulation</b>. Actual output should match desired output. The <b>tx</b> signal is <b>actual output</b> and <b>tx_exp</b> is the <b>desired or expected output</b>.
+ You can also check ModelSim Transcript window for "No errors" or "Errors" message.</p><a name = "SD"></a></li>
+<p align="justify" class="main">The <b>check</b> signal indicates the positions were there is a mismatch between tx and tx_exp.</p><a name = "SD"></a></li>
+<p align="center">
+  <img src="./Task_2_B/check.jpg">
+</p>
+<p align="justify" class="main">So, for correct output the check signal will always be <b>low</b> and "No errors" message is also displayed on ModelSim transcript.</p><a name = "SD"></a></li>
+<p align="justify" class="main">Once the output is correct i.e. there are no check signal pulses, observe <b>time_err</b> signal. 
+This signal indicates the timing error between tx and tx_exp.</p><a name = "SD"></a></li>
+<p align="center">
+  <img src="./Task_2_B/time_err.jpg">
+</p>
+<p align="justify" class="main">Ideally, this signal should also be <b>low</b> always and this will happen only when the "Bit Duration" is <b>8680 ns</b> (ideal value). 
+So you must ensure that the width of the "time_err" pulses is as narrow as possible and ideally 0 i.e. no pulses. 
+This becomes important if the design needs to be implemented on hardware.</p><a name = "SD"></a></li>
+</ol>
+<br />
+<p align=center><b>…BestWishes!…</b></p>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../md_files/task_2/Task_2_A.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../md_files/task_3/Task_3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../md_files/task_2/Task_2_A.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../md_files/task_3/Task_3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

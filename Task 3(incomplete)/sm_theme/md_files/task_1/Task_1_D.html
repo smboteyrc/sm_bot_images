@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Task 1 D : Frequency Scaling and PWM - eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="../../favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../../theme_intro.html">Soil Monitoring Bot</a></li><li class="chapter-item "><a href="../../TOC.html">Table of Contents</a></li><li class="chapter-item "><a href="../../md_files/task_0/Task_0.html">Task 0</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_0/installation.html">Introduction &amp; Installation</a></li><li class="chapter-item "><a href="../../md_files/task_0/getting_started.html">Getting started with Quartus</a></li><li class="chapter-item "><a href="../../md_files/task_0/pin_assignment.html">Pin assignment</a></li><li class="chapter-item "><a href="../../md_files/task_0/verification.html">Verifying Installation</a></li></ol></li><li class="chapter-item expanded "><a href="../../md_files/task_1/Task_1.html">Task 1</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_1/Task_1_A.html">Task 1 A : Combinational Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_B.html">Task 1 B : Sequential Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_C.html">Task 1 C : Finite State Machine</a></li><li class="chapter-item expanded "><a href="../../md_files/task_1/Task_1_D.html" class="active">Task 1 D : Frequency Scaling and PWM</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2.html">Task 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_2/Task_2_A.html">Task 2 A : Analog to Digital Converter</a></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2_B.html">Task 2 B : Universal Asynchronous Receiver Transmitter</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_3/Task_3.html">Task 3</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_3/Flex_instructions.html">Task 3 A : Flex Printing &amp; Block Making</a></li><li class="chapter-item "><a href="../../md_files/task_3/hardware_test.html">Task 3 B : Hardware Testing</a></li><li class="chapter-item "><a href="../../md_files/task_3/bot_building.html">Task 3 C : Bot Building</a></li></ol></li><li class="chapter-item "><a href="../../md_files/additional_resources/add_ons.html">Additional Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h1><a class="header" href="#task-1-d--frequency-scaling-and-pulse-width-modulation" id="task-1-d--frequency-scaling-and-pulse-width-modulation">Task 1 D : Frequency Scaling and Pulse Width Modulation </a></h1></center>
+<hr>
+<b>Problem Statement :</b> To scale down the 50Mhz Clock Frequency to 1Mhz and implement Pulse Width Modulation on it.
+<hr>
+<p><b>Description :</b><div align="justify" class="main"> <a name = "Resources"></a> In this task you will be designing a Frequency Scaling and Pulse Width Modulation block which has a 50Mhz clock and 8-bit Duty cycle as inputs. It has one <b>single output</b> which can generate a <b>variable duty cycle pulse width modulated signal with frequency of 1Mhz. </b></div></p>
+<p>E.g.<br />
+Input clk = 50Mhz
+Input Duty Cycle = 50%
+Output : </p>
+<p><img src="./Task_1_D/1.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<p>Input clk = 50Mhz
+Input Duty Cycle = 10%
+Output : </p>
+<p><img src="./Task_1_D/2.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<hr>
+Project File : <u><a href="./project_files/PWM.zip" download>Download TASK 1 D</a></u>
+<hr>
+<p><b>Resources :</b> <a name = "Resources1"></p>
+<ul>
+ <li><u><a href="https://www.analogictips.com/pulse-width-modulation-pwm/" target="_blank">PWM</a></u></li>
+ <li><u><a href="https://www.youtube.com/watch?v=2XjqS1clY_E" target="_blank">What is Pulse Width Modulation</a></u></li>
+ <li><u><a href="https://www.youtube.com/watch?v=5nwNKPs2gco" target="_blank">How PWM Works</a></u></li>
+ <li><u><a href="https://www.seeedstudio.com/blog/2020/06/16/basic-electronics-pulse-width-modulationpwm-and-arduino-applications/" target="_blank">PWM Applications</a></u></li>
+</ul>
+<hr />
+<p><b>Steps :</b></p>
+<ol>
+<li><p align="justify" class="main">Open the project file PWM_Generator.qpf which you have already downloaded from the above given link.</p></li> 
+<li><p align="justify" class="main">You will find the PWM_Generator.v Verilog HDL file already added to the project.</p></li>
+<p><img src="./Task_1_D/3.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<li><p align="justify" class="main">Double click on it to edit. You’ll find prewritten code where the module is defined. Read the comments provided in the PWM_Generator.v file properly. Edit this file to design a  Frequency Scaling and Pulse Width Modulation module. </p></li>
+<p><img src="./Task_1_D/4.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<p><b>Hint : </b></p>
+<ol>
+<li>First think how the input frequency of 50 Mhz can be scaled down to 1Mhz. (Think of a counter that can be used to achieve the desired output frequency).</li>
+<li>Duty cycle is 8 bit and it can have values between 0 - 100%. Think how this percentage input can be related to the on/off time of the signal generated in hint 1.</li>
+<li>To summarize, you are required to generate a PWM signal with variable duty cycle and output it on <b>PWM_OUT</b> signal. Use the <b>DUTY_CYCLE</b> input to vary the duty cycle (consider this as a variable whose value will be given externally). This PWM_OUT signal should be of <b>1MHz</b> frequency.</li>
+</ol>
+<blockquote>
+<p><em><strong>Note</strong> : The duty cycle will have value with a step size of 10% for simplicity in this task.</em> </p>
+</blockquote>
+<li><p align="justify" class="main">Once you are done writing the verilog code. Compile your design. <b>Processing > Start Compilation.</b></p></li>
+<li><p align="justify" class="main">Once you are done with the compilation with no error, proceed with the RTL simulation.</p></li>
+<li><p align="justify" class="main">If your design is correct you will see a <b>congratulation your design works fine</b> message at the transcript window. Else you will see an Error message in the transcript.</p></li>
+<li><p align="justify" class="main">You can also check waveforms and verify/debug your design.</p></li>
+<p><img src="./Task_1_D/5.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<blockquote>
+<p><em><strong>Note</strong> : Team can also use the .vwf technique to debug the code. But final code should simulate on modelsim with a proper transcript message i.e: Congratulations your design works fine.</em></p>
+</blockquote>
+<p align=center><b>…BestWishes!…</b></p>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../md_files/task_1/Task_1_C.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../md_files/task_2/Task_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../md_files/task_1/Task_1_C.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../md_files/task_2/Task_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

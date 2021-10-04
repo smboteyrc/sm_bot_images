@@ -1,0 +1,274 @@
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<u><center><h2> Ripple Carry Adder </h1></center></u>
+
+<center><h2> 1. Introduction </center></h2>
+
+***
+
+
+<p align="justify" class="main">Full Adder is an adder which adds three inputs and produces two outputs. The first two inputs
+are A and B and the third input is an input carry, C-IN. The output carry is designated as
+C-OUT and the Sum output is designated as S.</p>
+
+
+<p align="justify" class="main">Multiple full adder circuits can be cascaded in parallel to add an N-bit number. For an N-
+bit parallel adder, there must be N number of full adder circuits. A ripple carry adder is a logic
+circuit in which the carry-out of each full adder is the carry in of the succeeding next most
+significant full adder. It is called a ripple carry adder because each carry bit gets rippled into
+the next stage. We obtain an output carry (C-OUT) and an N- bit sum (S).</p><br />
+
+For this project we will be using the full adder design for our 2-bit ripple carry adder.
+
+
+<p align="center">
+  <img src="./images/RCA/circuit_diagram.png", width = 350, height=250>
+</p>
+<center>Figure 1: Full Adder</center><br />
+
+<p align="center">
+  <img src="./images/RCA/ripple.png", width = 350, height=250>
+</p>
+<center>Figure 2: 2-bit Ripple Carry Adder</center> <br /><br />
+
+
+
+| A      | B      | Cin    | Sum    | Carry  |
+| -------| -------| -------| -------| -------|
+|   0 	 |    0   |    0   |   0    |   0    |
+|   0    |    0   |	   1   |   1    |   0    |
+|	0	 |    1	  |    0   |   1    |   0    |
+|	0	 |    1   |	   1   |   0    |   1    |
+|	1	 |    0   |	   0   |   1    |   0    |
+|	1	 |    0   |	   1   |   0    |   1    |
+|	1	 |    1   |	   0   |   0    |   1    |
+|	1	 |    1   |	   1   |   1    |   1    |
+
+<center>Fig. Truth Table for Full Adder </center>
+
+<center><h2>  2. Verilog Codes </center></h2>
+
+***
+
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/91_2zQr5P2w?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+
+<h3> 2.1 RTL Description - Full Adder</h3>
+
+```verilog
+// Verilog code for Full Adder
+// Define Full Adder module
+module Full_adder (
+input a,b, c_in , // Define input ports a, b and c_in
+output sum , c_out ); // Define output ports sum and c_out
+assign sum = a ^ b ^ c_in ; // Define Sum logic
+assign c_out = ((a & b)| ( c_in & (a ^ b ))); // Define Carry_out logic
+endmodule
+```
+
+<h3> 2.2 RTL Description - Ripple Carry Adder</h3>
+
+```verilog
+// Verilog code for 2 bit ripple_carry_adder
+// Define module
+module Ripple_Carry_Adder (
+
+input [ 1 : 0 ]a,b,
+input cin , // Define all input ports
+output [ 1 : 0 ]Sum ,
+output C_Out ); // Define all ouput ports
+wire c1; // Define intermediate carry as c1
+
+Full_adder FA0(a[ 0 ] ,b[ 0 ] ,cin ,Sum[ 0 ] ,c1 ); // instantiate full_adder (FA0)
+Full_adder FA1(a[ 1 ] ,b[ 1 ] ,c1 ,Sum[ 1 ] ,C_Out ); // instantiate full_adder (FA1)
+
+endmodule
+```
+
+<h3> 2.3 Testbench</h3>
+
+```verilog
+// Verilog code for Test bench
+// Define module
+module Ripple_Carry_Adder_tb ;
+reg [ 1 : 0 ]a; // Define all I/O ports
+reg [ 1 : 0 ]b;
+reg cin;
+wire [ 1 : 0 ]Sum ;
+wire C_Out ;
+// Map all th I/O ports with DUT
+Ripple_Carry_Adder uut (.a(a) , .b(b) , .cin(cin) , .Sum(Sum) , . C_Out ( C_Out ));
+initial begin // Initialize the pins with different combination of inputs .
+
+a=2' b01 ; b=2' b11; cin =1' b1; # 100;
+a =2' b11; b=2' b11; cin =1' b1; # 100;
+a =2' b10; b=2' b01; cin =1' b0; # 100;
+a =2' b00; b=2' b11; cin =1' b0; # 100;
+end // End of initial block
+
+endmodule
+```
+
+<center><h2>  3. Implementing on Quartus Prime </center></h2>
+
+***
+
+Follow the below steps :
+<ol>
+<li>Start a <b>New Project</b> in Quartus Lite software.</li>
+
+<p align="center">
+  <img src="./images/RCA/img1.png", width=700, height=500>
+</p> 
+<center>Figure 3: Creating New Project</center><br />
+
+<li><p align="justify" class="main">You will see this screen after completing all steps. For detailed steps refer the <b>Getting Started with Quartus</b> section from Task 0.</p></li>
+
+
+<p align="center">
+  <img src="./images/RCA/img2.png", width=700, height=500>
+</p> 
+<center>Figure 4: Summary</center><br />
+
+<li><p align="justify" class="main">We will be using <b>Verilog HDL</b> Code throughout this project. Create a <b>New Verilog HDL file.</b></p></li>
+
+
+<li><p align="justify" class="main">Type the code for full adder in this file.</p></li>  
+
+
+
+<li><p align="justify" class="main">Go to <b>File→Save as</b> and save the file.</p></li>
+
+> *__Note:__ File name should be same as entity name.*
+
+<li><p align="justify" class="main">Now, Create a <b>New Verilog HDL file</b> again and type the code for 2-bit Ripple Carry Adder in this file.</p></li>
+
+<li>Go to <b>File→Save as</b> and save the file.</li>
+
+<li><p align="justify" class="main">Goto <b>Project→Set as Top-Level Entity.</b> The <b>ripple carry adder</b> file is our main
+file and make sure you have selected this file while setting the top level entity.</p></li>
+
+<li>Goto <b>Processing→Start Compilation.</b></li>
+
+<li><p align="justify" class="main">You can verify whether all the files are compiled successfully by checking the highlighted
+tabs i.e. <b>Messages</b> and <b>Tasks</b> tab.</p></li>
+
+<p align="center">
+  <img src="./images/RCA/img8.png">
+</p>
+</ol>
+
+<center><h2>  4. RTL Circuit of the implemented design </center></h2>
+
+***
+
+<p align="justify" class="main">
+The Figure shown in step 2 below shows the RTL design of the ripple carry adder circuit. Here
+you can see 2 full adder modules are used. The design for these modules is incorporated from
+the full adder file.</p>
+
+<b>Steps to get RTL circuit.</b>
+<ol>
+<li> Goto <b>Tools→Netlist Viewers→RTL Viewer.</b></li>
+
+<p align="center">
+  <img src="./images/RCA/img9.png">
+</p>
+
+<li>The below figure shows the equivalent RTL circuit of full adder.</li>
+
+<p align="center">
+  <img src="./images/RCA/img10.png", width=600, height=300>
+</p>
+</ol>
+
+
+<center><h2>  5. Implementing on Modelsim </center></h2>
+
+***
+ 
+
+<p align="justify" class="main">For more detailed procedure on using ModelSim, refer <b>Getting Started with Quartus</b> section from Task 0. You can find Verilog HDL TestBench code
+below.</p>
+
+<ol>
+<li><p align="justify" class="main">Create a New Verilog HDL file in Quartus Prime. Type in the TestBench code provided in this
+ document and save the file with the same name as the module name.</p></li>
+
+
+<li> Go to <b>Assignments→Settings</b>.</li>
+
+
+<li><p align="justify" class="main">Navigate to <b>Simulation</b> under <b>EDA Tool Settings</b>. Set the language as Verilog HDL. Select
+<b>Compile TestBench</b> and then click on <b>Test Benches.</b></p></li>
+
+<p align="center">
+  <img src="./images/RCA/img24.png">
+</p>
+
+
+<li>Click on <b>New</b>, this opens another dialogue box.</li>
+
+<p align="center">
+  <img src="./images/RCA/img25.png">
+</p>
+
+<li><p align="justify" class="main">Now type in the TestBench name(In this design , its <b>tb_ripple_carry_adder</b>). Now click on the highlighted Browse button.Find the TestBench file(it can be found in the project directory) and click on <b>Open</b>. Now click on <b>Add</b>, then <b>OK</b>.</p></li>
+
+<p align="center">
+  <img src="./images/RCA/img26.png">
+</p>
+<br />
+</ol>
+
+<b>Functional Simulation using NativeLink Feature.</b>
+
+<ol>
+<li> Go to <b>Processing→Start Compilation.</b></li>
+
+<p align="center">
+  <img src="./images/RCA/img7.png">
+</p>
+
+<li><p align="justify" class="main">Go to <b>Tools → Run Simulation Tool → RTL Simulation</b> to automatically run the EDA simulator(ModelSim-Altera) and to compile all necessary design files.</p></li>
+
+<p align="center">
+  <img src="./images/RCA/img28.png">
+</p>
+
+<li><p align="justify" class="main">Finally ModelSim-Altera tool opens up with simulated waveform. click on <b>Run all</b> icon
+on the tool box to display the waveform.</p></li>
+
+> *__Note:__ If you cannot see the waveform, Click on the waveform window and select the <b>Zoom all</b> option.*
+
+<p align="center">
+  <img src="./images/RCA/img29.png">
+</p>
+</ol>
+
+<center><h2>  6. Testing the Design </center></h2>
+
+***
+
+<h3> 6.1 Simulation waveform of the VHDL Design</h3>
+<p align="justify" class="main">The Result shown below can be verified by comparing it with the Truth Table provided in <b>Introduction</b> section. You can observe individual bits of a particular signal by clicking on the ’+’ icon.</p>
+
+<p align="center">
+  <img src="./images/RCA/img30.png">
+</p>
+

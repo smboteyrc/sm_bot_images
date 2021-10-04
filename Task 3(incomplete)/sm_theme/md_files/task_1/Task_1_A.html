@@ -1,0 +1,441 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Task 1 A : Combinational Circuit - eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="../../favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../../theme_intro.html">Soil Monitoring Bot</a></li><li class="chapter-item "><a href="../../TOC.html">Table of Contents</a></li><li class="chapter-item "><a href="../../md_files/task_0/Task_0.html">Task 0</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_0/installation.html">Introduction &amp; Installation</a></li><li class="chapter-item "><a href="../../md_files/task_0/getting_started.html">Getting started with Quartus</a></li><li class="chapter-item "><a href="../../md_files/task_0/pin_assignment.html">Pin assignment</a></li><li class="chapter-item "><a href="../../md_files/task_0/verification.html">Verifying Installation</a></li></ol></li><li class="chapter-item expanded "><a href="../../md_files/task_1/Task_1.html">Task 1</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../md_files/task_1/Task_1_A.html" class="active">Task 1 A : Combinational Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_B.html">Task 1 B : Sequential Circuit</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_C.html">Task 1 C : Finite State Machine</a></li><li class="chapter-item "><a href="../../md_files/task_1/Task_1_D.html">Task 1 D : Frequency Scaling and PWM</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2.html">Task 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_2/Task_2_A.html">Task 2 A : Analog to Digital Converter</a></li><li class="chapter-item "><a href="../../md_files/task_2/Task_2_B.html">Task 2 B : Universal Asynchronous Receiver Transmitter</a></li></ol></li><li class="chapter-item "><a href="../../md_files/task_3/Task_3.html">Task 3</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../md_files/task_3/Flex_instructions.html">Task 3 A : Flex Printing &amp; Block Making</a></li><li class="chapter-item "><a href="../../md_files/task_3/hardware_test.html">Task 3 B : Hardware Testing</a></li><li class="chapter-item "><a href="../../md_files/task_3/bot_building.html">Task 3 C : Bot Building</a></li></ol></li><li class="chapter-item "><a href="../../md_files/additional_resources/add_ons.html">Additional Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h1><a class="header" href="#task-1-a--combinational-circuit" id="task-1-a--combinational-circuit">Task 1 A : Combinational Circuit</a></h1></center>
+<hr>
+<b>Problem Statement :</b> Design a combinational circuit using 4-bit comparator, 4 input logic function and 4:1 multiplexer. Minterms for logic function are f(C,D,E,F) = Σm(0,1,6,7,8,11,12,15).
+<hr>
+<p><b>Description :</b><div align="justify" class="main"> <a name = "Resources"></a> In this task you will be designing a combinational circuit consisting of a 4-bit comparator, 4 input logic function and 4:1 multiplexer. The 4-bit comparator is designed using a 2-bit comparator. The minterms for the logic function are f(C,D,E,F) = Σm(0,1,6,7,8,11,12,15), so whenever any of these minterms occur, output of the 4-input logic function becomes HIGH. A 4:1 multiplexer is used to select output of either 4-bit comparator or 4-input logic function as shown below.</div></p>
+<p align="center">
+  <img src="./Task_1_A/3.jpg">
+</p> 
+<blockquote>
+<p><em><strong>Note</strong> : You are only allowed to modify the code/ block diagram wherever it is mentioned to do so. Modifying the restricted blocks of code/ block diagram will result in Zero Marks and/ or disqualification from the competition.</em></p>
+</blockquote>
+<hr>
+Project File : <u><a href="./project_files/comb_ckt.zip" download>Download TASK 1 A</a></u>
+<hr>
+<p><b>Resources :</b> <a name = "Resources1"></p>
+<ul>
+<li><u><a href="../task_0/getting_started.html" target="_blank">Getting Started with Quartus</a></u></li>
+<li><u><a href="https://www.chipverify.com/verilog/verilog-tutorial" target="_blank">Verilog tutorials</a></u></li>
+<li><u><a href="https://www.geeksforgeeks.org/magnitude-comparator-in-digital-logic/" target="_blank">Magnitude Comparator</a></u></li>
+<li><u><a href="https://www.geeksforgeeks.org/multiplexers-in-digital-logic/" target="_blank">Multiplexer</a></u></li>
+<li><u><a href="https://www.geeksforgeeks.org/minimization-of-boolean-functions/" target="_blank">Minimization of logic function</a></u></li>
+<li>Converting Verilog file to Block Diagram</li><br>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"  src="https://www.youtube.com/embed/wBThTwBCkP4?autoplay=1&origin=http://example.com"  frameborder="0"></iframe></center>
+</ul>
+<hr />
+<p><b>Steps :</b></p>
+<ol>
+<li><p align="justify" class="main">Open <b>comb_ckt.qpf</b> (Quartus Prime Project File) located in the comb_ckt folder. Quartus Prime might take some time to load depending on the configuration of your PC. Once the project file is opened in Quartus Prime your Quartus window will look like the image shown below :</p><a name = "SD"></a></li>
+<p><img src="./Task_1_A/1.jpg"
+        alt="project file"
+        style="float: center; margin-center: 10px;" /></p>
+<li><p align="justify" class="main">On the top left corner “Project Navigator” window shows the compilation <b>Hierarchy</b> of the project. Click on the dropdown menu and select <b>Files</b> view as shown in the image below.</p></li><br />
+<p align="center">
+  <img src="./Task_1_A/2.jpg">
+</p>  
+<li><p align="justify" class="main">You will find 5 files already present in the project folder : 
+Mux_4_to_1.v (Verilog HDL file), Two_Bit_Comparator.v, Four_Bit_Comparator.v, Logic_Func.v, comb_ckt.bdf (Block Design File).</p> </li>
+<blockquote>
+<p><em><strong>Note</strong> : These five files are pre added to the project by e-Yantra team.</em></p>
+</blockquote>
+<li><p align="justify" class="main">The first file is Two_Bit_Comparator.v (Verilog HDL file). Double click on it to edit. You’ll find prewritten code where the module is defined. Edit this file to design a 2-bit comparator but do not make any changes to the module declaration. <b>Teams are not allowed to use predefined operators like ">", "<", "=" for comparison.</b></p></li>
+<blockquote>
+<p><em><strong>Note</strong> :To verify 2-bit comparator design, you can use <b>University Program VWF</b> method (refer Task 0).</em></p>
+</blockquote>
+<li><p align="justify" class="main">After designing a 2-bit comparator, you can edit the Four_Bit_Comparator.v file to design a 4-bit comparator. Again, do not make any changes to the module declaration. This 4-bit comparator is designed by <b>instantiating the Two_Bit_Comparator</b> design (which is created earlier) <b>in Four_Bit_Comparator.v</b> and teams are <b>not allowed to use</b> predefined operators like <b>">", "<", "="</b> for comparison.</p></li>
+<blockquote>
+<p><em><strong>Note</strong> : Refer to this <a href="https://www.chipverify.com/verilog/verilog-modules">link</a> to understand module instantiation.</em></p>
+</blockquote>
+<li><p align="justify" class="main">Now that you have designed a 4-bit comparator, you can start editing Logic_Func.v file to design a 4-input logic function f(C,D,E,F) = Σm(0,1,6,7,8,11,12,15). Here C is MSB and F is LSB. Refer to <u><a href="https://www.geeksforgeeks.org/minimization-of-boolean-functions/" target="_blank">Minimization of logic function</a></u> resource to efficiently design the logic function.</p></li>
+<li><p align="justify" class="main">Finally, design a 4:1 Multiplexer by editing Mux_4_to_1.v file. Inputs are I3(MSB), I2, I1, I0(LSB) and also two Select inputs S1(MSB), S0(LSB).</b> </p> </li>
+<li><p align="justify" class="main">Once all the designs are successfully created, create a Symbol file for Mux_4_to_1.v, Four_Bit_Comparator.v and Logic_Func.v.</li> 
+<blockquote>
+<p><em><strong>Note</strong> : Refer : <a href="https://youtu.be/wBThTwBCkP4">Converting Verilog file to Block Diagram</a>.</em></p>
+</blockquote>
+<li><p align="justify" class="main">Now open <b>comb_ckt.bdf</b> (Block Design File) to create the final combinational circuit. In the comb_ckt.bdf file Inputs and Outputs are predefined, do not make any changes to these PORTS. Refer above block diagram for creating the combinational circuit. Properly add all the symbols which are created earlier and make correct connections between them.</b></p></li>
+<li><p align="justify" class="main">Now, Generate Verilog HDL file from comb_ckt.bdf file. To do so, while comb_ckt.bdf is open click on <b>File > Create/ Update > Create HDL Design File From Current File > Select Verilog HDL > OK.</b> </p> </li>
+<blockquote>
+<p><em><strong>Note</strong> : Generate Verilog HDL file after completing the whole design. If you change anything in the block diagram file you have to again create a Verilog HDL file.</em></p>
+</blockquote>
+<li><p align="justify" class="main">Now comb_ckt.v is created and you can find this file in the comb_ckt folder in Windows File Manager. Rename this file to <b>comb_ckt_verilog.v</b></p> </li>
+<li><p align="justify" class="main">We need to add this file to our project. Right Click on the <b>Files</b> symbol under <b>Project Navigator > Add/ Remove Files in Project > Click on 3 dots > Select comb_ckt_verilog.v file > Open > Apply > OK.</b> </p> </li>
+<li><p align="justify" class="main">Double click on the file added in the previous step. Now change the module name. Module name should be the same as file name i.e. <b>comb_ckt_verilog. Do not make any other changes.</b></p> </li>
+<p><b>Before :</b></p>
+<pre><code class="language-verilog">module comb_ckt(
+	C,
+	D,
+	E,
+	F,
+	S1,
+	S0,
+	A,
+	B,
+	Y
+);
+</code></pre>
+<p><b>After :</b></p>
+<pre><code class="language-verilog">module comb_ckt_verilog(
+	C,
+	D,
+	E,
+	F,
+	S1,
+	S0,
+	A,
+	B,
+	Y
+);
+
+</code></pre>
+<p><a name = "SD13"></a></p>
+<blockquote>
+<p><em><strong>Note</strong> : Follow the steps correctly and make sure that file/module names are exactly as described in above steps. Slight mistakes might lead to compilation errors.</em></p>
+</blockquote>
+<li><p align="justify" class="main">Now the next step is to make the <b>comb_ckt_verilog.v</b> file as <b>Top-Level Entity</b>. <b>Right click</b> on the comb_ckt_verilog.v file > <b>Set as Top-Level Entity</b>.</p></li>
+<li><p align="justify" class="main">Compile your design : <b>Processing > Start Compilation</b>. Finally Run the RTL simulation. <b>Tools > Run Simulation Tool > RTL Simulation</b>. A new window will pop up after a few seconds and you will be able to see the results of your design in <b>ModelSim</b> Software. If your design is correct then you will see <b>Congratulations</b> message in the transcript (bottom section of ModelSim).</li>
+<p align="center">
+  <img src="./Task_1_A/4.jpg">
+</p> 
+<p>Else you will see an <b>Error</b> message in the transcript.</p>
+<p align="center">
+  <img src="./Task_1_A/5.jpg">
+</p> 
+<p>You can also check waveforms and verify/debug your design.</p>
+<p><img src="./Task_1_A/6.jpg"
+         alt="error"
+         style="float: center; margin-center: 10px;" /></p>
+<p>When <b>Output (Y)</b> and <b>Expected Output (exp_out)</b> match, there will be no errors in the design.</p>
+<blockquote>
+<p><em><strong>Note</strong> : If you are not able to see waveform, you can right click and select <b>zoom in/zoom out/zoom full</b> as shown in the above figure.</em></p>
+</blockquote>
+</ul>
+<br />
+<p align=center><b>…BestWishes!…</b></p>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../md_files/task_1/Task_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../md_files/task_1/Task_1_B.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../md_files/task_1/Task_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../md_files/task_1/Task_1_B.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

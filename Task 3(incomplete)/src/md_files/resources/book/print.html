@@ -1,0 +1,1927 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js rust">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>eYRC 2021-22: Soil Monitoring Bot (SM)</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- 
+        <link rel="icon" href="favicon.svg">
+         -->
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">Table of contents</a></li><li class="chapter-item "><a href="prerequisites/prereq_intro.html">Prerequisites</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="prerequisites/prerequisites.html">Basics of Digital Electronics</a></li></ol></li><li class="chapter-item "><a href="basic_resources/basic.html">Basic Resources</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="basic_resources/TWS.html">Two Way Switch</a></li><li class="chapter-item "><a href="basic_resources/RCA.html">Ripple Carry Adder</a></li><li class="chapter-item "><a href="basic_resources/7seg.html">Seven Segment Display</a></li><li class="chapter-item "><a href="basic_resources/ALU.html">Arithmetic Logic Unit</a></li><li class="chapter-item "><a href="basic_resources/USR.html">Universal Shift Register</a></li></ol></li><li class="chapter-item "><a href="advanced.html">Advanced Resources</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <!-- <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+ -->
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div style="width:100%">
+                        <html>
+	<head>
+	<style>
+		
+	@media only screen and (max-width: 600px) {
+	  .eyrc_ckt{
+			display:none;
+		}
+	}
+
+	</style>
+	</head>
+	<body>
+		<div>
+		<center></center>
+			<div style="display:flex; justify-content:space-between;padding:10px;padding-top:0">
+				<div >
+					<img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" height="40px" style="padding:10px 15px;" />
+				</div>
+				<div>
+					<img src="https://raw.githubusercontent.com/kalindkaria/typora-md-assets/master/maze_bot/assets/eyrc-header.svg" height="80px"  class="eyrc_ckt">
+				</div>
+				<div style="font-weight:900;font-size:20px;text-align:center;padding:10px 15px">
+					Robotics Competition<br>
+					2020-21
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
+
+
+
+                    </div>
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">eYRC 2021-22: Soil Monitoring Bot (SM)</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<hr>
+<center><h1><a class="header" href="#index" id="index"> INDEX </a></h1></center>
+<hr>
+<ul>
+  <li>Prerequisites
+	<ol>
+		<li><div align="justify" class="main"><a href="./prerequisites/prerequisites.html">Basics of Digital Electronics</a></div></li>
+    </ol>
+  </li>
+  <li>Basic Resources
+    <ol>
+		<li><div align="justify" class="main"><a href="./basic_resources/TWS.html">Two Way Switch</a></div></li>
+		<li><div align="justify" class="main"><a href="./basic_resources/RCA.html">Ripple Carry Adder</a></div></li>
+		<li><div align="justify" class="main"><a href="./basic_resources/7seg.html">Seven Segment Display</span></div></li>
+		<li><div align="justify" class="main"><a href="./basic_resources/ALU.html">Arithmetic Logic Unit</a></div></li>
+		<li><div align="justify" class="main"><a href="./basic_resources/USR.html">Universal Shift Register</a></div></li>
+    </ol>
+  </li>
+  <li>Advanced Resources
+	<ol>
+		<li><a href="https://www.youtube.com/watch?v=6sM-J7QMO1g&feature=youtu.be" target="_blank"> How to Use PLL IP in Quartus </a></li>
+		<li><a href="https://www.youtube.com/watch?v=i6VWKUMElH0&feature=youtu.be" target="_blank"> How to Use Multipliers in Quartus </a></li>
+		<li><a href="https://www.youtube.com/watch?v=LiFB1OuWb9A&feature=youtu.be" target="_blank"> How to Use Dividers in Quartus </a></li>
+    </ol>
+  </li>
+</ul>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#prerequisites" id="prerequisites">Prerequisites</a></h2></center>
+<hr>
+<p>In this section you will learn : </p>
+<ul>
+<li><a href="prerequisites/./prerequisites.html">Basics of Digital Electronics</a>. </li>
+</ul>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#basics-of-digital-electronics" id="basics-of-digital-electronics">Basics of Digital Electronics</a></h2></center>
+<hr>
+<p>In this section you will learn the basics of Digital Circuits. </p>
+<p>Let us start with the Binary number system.</p>
+<p align="justify" class="main">
+Ever wondered how the computer understands your program written in ‘C’ or ’python’ or any other language? 
+Well it does not understand these languages. It only understands the machine language or binary logic. It is the compiler that converts your 
+program into the machine language which the computer understands. This language contains only 2 elements ‘0’ and ‘1’, which form a number 
+system called the binary number system. Hence, as a digital circuit designer, it is important for us to understand this number system.</p>
+<p align="justify" class="main">
+<b>Binary Number system :</b> As said earlier, it is a number system consisting of only two numbers 0 and 1. So how do we represent 2? The same way we have 0-9 in the decimal system and we represent 10 as ‘ten’ in the decimal system. </p>
+<p><b>Operations in binary number system :</b> Refer this <u><a href="https://learn.circuitverse.org/docs/binary-algebra/" target="_blank">link</a></u> for operations in Binary number system.</p>
+<p><b>So how are the binary numbers used in digital circuits?</b><br /></p>
+<p align="justify" class="main">In digital circuits, the voltage levels are represented by a binary 1 (for high voltage) and 0 (for low voltage). Refer the 
+following sections at this <u><a href="https://www.allaboutcircuits.com/textbook/digital/chpt-3/logic-signal-voltage-levels/ " target="_blank">link</a></u> 
+to understand more :</p>
+<ul>
+<li>Voltage Tolerance of TTL Gate Inputs</li>
+<li>Voltage Tolerance of CMOS Gate Inputs</li>
+</ul>
+<p>Let us now learn about logic gates in digital circuits.</p>
+<p align="justify" class="main"><b>Logic gates are electronic devices that perform logical operations on input signals. Following is the list of logic gates :</b></p>
+<ul>
+<li>NOT</li>
+<li>AND</li>
+<li>NAND</li>
+<li>OR</li>
+<li>NOR</li>
+<li>X-OR</li>
+<li>X-NOR</li>
+</ul>
+<p>Check the video below to understand the working of NOT, AND and NAND gates.</p>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/KGl64gyuACs?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<p align="justify" class="main">
+Now that you have understood how to create Truth tables for NOT, AND and NAND, can you complete Truth Table below for the remaining gates?</p> 
+<p align="center">
+  <img src="prerequisites/images/2.png">
+</p>
+<p>You can use the circuitverse link below to complete the Truth Table.</p>
+<center>
+<iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/logic-gates-535129d7-c738-414e-8a54-7e40086b7a6b" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+</center>
+<p>Confirm that the truth table for the gates is as below:</p>
+<p align="center">
+  <img src="prerequisites/images/3.png">
+</p>
+<p>If your truth table does not match the above truth table, check the circuit and deduce the truth table again.</p>
+<p>Simple hack to remember the truth table of the above logic gates:</p>
+<ul>
+<li>NOT  : Gives opposite of input</li>
+<li>AND  : Output is ‘1’ only if all inputs are ‘1’, else ‘0’</li>
+<li>NAND : Opposite of AND</li></li>
+<li>OR   : Output is ‘1’ if any of the inputs is ‘1’</li>
+<li>NOR  : Opposite of OR</li>
+<li>X-OR : Output is ‘1’ if there are odd number of input ‘1’</li>
+<li>X-NOR: Opposite of X-OR</li>
+</ul>
+<p align="justify" class="main">Now that you know how to deduce the truth table for basic gates, here is a self learning activity.</p> 
+<p align="justify" class="main">Consider the circuit below. Convert the numbers in your eYRC team ID into Binary and consider the lowest three bits as the input to the circuit. For example, if your team ID is 502, binary is ‘111110110’ and the lowest three bits for input become A=1, B=1 and C=0. Now deduce the outcome ‘Y’ for the circuit for the respective inputs using your team ID.</p>
+<p align="center">
+  <img src="prerequisites/images/1.png">
+</p> 
+<blockquote>
+<p><em><strong>Note:</strong> This is a self learning activity and we expect you to honestly deduce the output for your inputs. You are free to refer to any resources. Once you have deduced the output, refer to the truth table at this <u><a href="https://docs.google.com/document/d/1H-i4tXCxkCBNDhYj9GnqmqaxfLFcCDpsrBAhMMBkMbY/edit?usp=sharing" target="_blank">link</a></u> to confirm your output is correct. If not, work on the circuit again.</em></p>
+</blockquote>
+<p align="justify" class="main">We will now study more combinational digital circuits.
+Watch the video below that explains the working of Half Adder.</p>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/gGbmLotvN40?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<p>Now use the circuit below and the internet to understand the working of Full Adder, Multiplexer and Demultiplexer.</p>
+<center>
+<iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/combinational-digital-logic" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+</center>
+<p align="justify" class="main">The circuits discussed till now can be categorized into combinational logic circuits. In these types of circuits, the output of the circuit depends only on present input and does not depend on previous outputs. Contrary, the other category of digital circuits is sequential logic circuits where the output depends on current input, as well as, previous output.</p>
+<p>Watch the video below:</p>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/Sm27ULM5uqA?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<p align="justify" class="main">Now that you know the basics of latches and flip-flops, deduce the state table for various flip-flops listed below.</p>
+<table><thead><tr><th>S</th><th>R</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td></td></tr>
+<tr><td>0</td><td>1</td><td></td></tr>
+<tr><td>1</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>1</td><td></td></tr>
+</tbody></table>
+<center>SR flipflop</center>
+<br>
+<table><thead><tr><th>J</th><th>K</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td></td></tr>
+<tr><td>0</td><td>1</td><td></td></tr>
+<tr><td>1</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>1</td><td></td></tr>
+</tbody></table>
+<center>JK flipflop</center>
+<br>
+<p>You can use the circuitverse link below to complete the state table.</p>
+<center>
+<iframe width="600px" height="400px" src="https://circuitverse.org/simulator/embed/sequential-digital-logic" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+</center>
+<p>Confirm that the state table is as below:</p>
+<table><thead><tr><th>D</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td></tr>
+<tr><td>1</td><td>1</td></tr>
+</tbody></table>
+<center>D flipflop</center>
+<br>
+<table><thead><tr><th>T</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>Q(t)</td></tr>
+<tr><td>1</td><td>Q(t)'</td></tr>
+</tbody></table>
+<center>T flipflop</center>
+<br>
+<table><thead><tr><th>S</th><th>R</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>Q(t)</td></tr>
+<tr><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>-</td></tr>
+</tbody></table>
+<center>SR flipflop</center>
+<br>
+<table><thead><tr><th>J</th><th>K</th><th>Q(t+1)</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>Q(t)</td></tr>
+<tr><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>Q(t)’</td></tr>
+</tbody></table>
+<center>JK flipflop</center>
+<p>With this we have completed the basics of digital logic circuits. </p>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#basic-resources" id="basic-resources">Basic Resources</a></h2></center>
+<hr>
+<p>In this section you will learn : </p>
+<ul>
+<li><a href="basic_resources/./TWS.html">Two Way Switch</a> </li>
+<li><a href="basic_resources/./RCA.html">Ripple Carry Adder</a></li>
+<li><a href="basic_resources/./7seg.html">Seven Segment Display</a> </li>
+<li><a href="basic_resources/./ALU.html">Arithmetic Logic Unit</a></li>
+<li><a href="basic_resources/./USR.html">Universal Shift Register</a> </li>
+</ul>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><u><h2><a class="header" href="#two-way-switch" id="two-way-switch"> Two Way Switch </a></h2></u></center>
+<center><h2><a class="header" href="#1-introduction" id="1-introduction"> 1. Introduction </a></h2></center>
+<hr />
+<h3><a class="header" href="#11-what-is-a-two-way-switch-" id="11-what-is-a-two-way-switch-"> 1.1 What is a Two Way Switch ?</a></h3>
+<p align="justify" class="main">A two way switch can be explained using a simple example. Consider a room with
+two switches and one bulb. Now, If both the switches are in OFF state or ON state
+the bulb will not glow. But, if either of the two switch is ON the bulb will glow.
+If we have to relate this with digital electronics, the logic can be realised using an
+X-OR gate.</p>
+<h3><a class="header" href="#12-x-or-gate" id="12-x-or-gate"> 1.2 X-OR Gate</a></h3>
+XOR gate (pronounced as Exclusive OR) is a digital logic gate that gives a <b>TRUE</b>
+(1 or HIGH) output when odd number of inputs are <b>TRUE.</b>
+<p align="center">
+  <img src="basic_resources/images/TWS/img1.png", width =400, height=150>
+</p>
+<center>Figure 1: Symbol</center>
+<p align="center">
+  <img src="basic_resources/images/TWS/img2.png", width =300, height=300>
+</p>
+<center>Figure 2: Truth Table</center>
+<center><h2><a class="header" href="#2-circuit-diagram" id="2-circuit-diagram"> 2. Circuit Diagram </a></h2></center>
+<hr />
+<blockquote>
+<p><em><strong>Note:</strong> LED does not conduct in both direction. This circuit is just a representation of the logic.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/TWS/new circuit.png">
+</p>
+<center>Figure 3: Two way switch Circuit Diagram.</center><br />
+<center><h2><a class="header" href="#3-code-in-verilog" id="3-code-in-verilog"> 3. Code in Verilog </a></h2></center>
+<hr />
+<h3><a class="header" href="#31-verilog-codertl-description" id="31-verilog-codertl-description"> 3.1 Verilog Code(RTL Description)</a></h3>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/Z5gHCHcOVyE?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<p>Dataflow Modelling:</p>
+<pre><code class="language-verilog">//Verilog code in Dataflow style
+module TWS(
+input s1,s2, //Define two Inputs pins
+output z); //Define one output pin
+assign z = (s1^s2); //XOR the 2 input pins(s1,s2) and assign
+
+//the output to the output pin(X1)
+
+endmodule
+</code></pre>
+<p>Behavioural Modelling:</p>
+<pre><code class="language-verilog">//Verilog code in Behavioural style
+module TWS(
+input s1,s2, //Define two inputs(switches)
+output reg z //Define the output pin
+);
+always @ (s1,s2) //Every time the input changes, the output
+
+//is to be updated
+
+begin
+if (s1==s2) //if both switches are in same position,
+
+//output is LOW
+z = 0;
+else
+z=1; //if the position of switches are not equal,
+//output is HIGH
+
+end
+endmodule
+</code></pre>
+<h3><a class="header" href="#32-testbench-codeverilog" id="32-testbench-codeverilog"> 3.2 Testbench Code(Verilog)</a></h3>
+<pre><code class="language-verilog">module TWS_tb;
+reg s1;reg s2; //define input
+wire z; //define output
+TWS_Behavioural uut(.s1(s1),.s2(s2),.z(z)); //Map testbench ports with
+
+//DUT ports
+
+initial begin
+s1 = 0; s2 = 0;#100; //different combinations of input
+s1 = 0; s2 = 1;#100;
+s1 = 1; s2 = 0;#100;
+s1 = 1; s2 = 1;#100;
+#100;
+end
+endmodule
+</code></pre>
+<center><h2><a class="header" href="#4-implementing-on-quartus" id="4-implementing-on-quartus"> 4. Implementing on Quartus</a></h2></center>
+<hr />
+<p align="justify" class="main">To Implement the design in Quartus Software, follow these steps: (For more detailed information on the following steps, refer <b>Getting Started with Quartus</b> section from Task 0)</p>
+<blockquote>
+<p><em><strong>Note:</strong> For this demonstration, the language used is Verilog HDL.</em><br /></p>
+</blockquote>
+<p><b>Family:</b> Cyclone IV E; <b>Chip Name:</b> EP4CE22F17C6</p>
+<ol>
+<li> Start a new project in Quartus Lite software</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/TWS new1.png">
+</p>
+<li><p align="justify" class="main">Create a new Verilog or VHDL file.Here we create a Verilog file for demonstration. Same procedure can be followed to VHDL file.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/Implement on Quartus/img2.png">
+</p>
+<li><p align="justify" class="main">Type the above main code in this file and make sure that the Module name
+and the file name is same.</p></li>
+<blockquote>
+<p><em><strong>Note:</strong> We have used the Dataflow Verilog code for this demonstration.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/TWS/twsnew3.png">
+</p>
+<li> Go to <b>Project → Set as Top-Level Entity</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/SETAS.png">
+</p>
+<li>Go to <b>Processing → Start Compilation</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/TWSCOM.png">
+</p>
+<li>After successful compilation, you will see these Green check marks.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/check_marks.png">
+</p>
+</ol>
+<center><h2><a class="header" href="#5-rtl-circuit-of-the-implemented-design" id="5-rtl-circuit-of-the-implemented-design"> 5. RTL Circuit of the implemented design </a></h2></center>
+<hr />
+<p align="justify" class="main">The below two figures show the RTL Circuit of the two different types of modelling (Dataflow and behavioural). As it can be seen, both types of modelling resulted
+in the same type of design. Although might not be true for more complex designs (Behavioural modelling results in a more complex circuit than Dataflow or
+Structural), intelligent and smart behavioural design can lead to really well optimised circuits.</p>
+<p><b>Steps to get RTL circuit.</b></p>
+<ol>
+<li> Go to <b>Tools → Netlist Viewers → RTL Viewer</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/TWSRTL1.png">
+</p>
+<li> The below figure shows the equivalent RTL circuit in both Dataflow and Behavioural modelling styles.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/TWSRTL2.png">
+</p>
+<center>Figure 4: Dataflow modelling</center><br />
+<p align="center">
+  <img src="basic_resources/./images/TWS/TWSRTL2.png">
+</p>
+<center>Figure 5: Behavioural modelling</center><br />
+<ol>
+<center><h2><a class="header" href="#6-implementing-on-modelsim" id="6-implementing-on-modelsim"> 6. Implementing on Modelsim </a></h2></center>
+<hr />
+<p align="justify" class="main">The TestBench shown here is a Verilog TestBench. For more detailed procedure on using ModelSim, Refer <b>Getting Started with Quartus</b> section from Task 0.</p>
+<ol>
+<li> <p align="justify" class="main">Create a <b>NEW</b> Verilog  file in Quartus&nbsp; Prime. Type in the TestBench code
+provided in this document and <b>SAVE</b> the file with the same name as the
+module name.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/twstbadd.png">
+</p>
+<li>Go to <b>Assignments→Settings</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/tws4.png">
+</p>
+<li><p align="justify" class="main"> Navigate  to <b>Simulation</b> under <b>EDA Tool Settings</b>. Set the language as
+Verilog HDL.  Select <b>Compile Test Bench</b> and then click on <b>Test Benches</b>.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/tws5.png">
+</p>
+<li>Click on <b>New</b>, this opens another dialogue box.</li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/tws6.png">
+</p>
+<li><p align="justify" class="main">Now type in the testbench name(In this design , its <b>tb_TWS</b>). Now click on
+the highlighted browse button. Find the testbench file(it can be found in the
+project directory) and  click on <b>Open</b>. Now click on <b>Add</b>,then <b>OK</b>.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/tws7.png">
+</p>
+</ol>
+<p><b>Functional Simulation using NativeLink Feature</b></p>
+<ol>
+<li><p align="justify" class="main">Go to menu <b>Processing → Start → Start Analysis & Elaboration</b>. After
+this click on <b>Start Analysis & Synthesis</b> on the same drop box.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/tws8.png">
+</p>
+<li><p align="justify" class="main">Go to menu <b>Tools → Run Simulation Tool → RTL Simulation</b> to
+automatically run the EDA simulator(ModelSim-Altera) and to compile all
+necessary design files.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/TWS/simu5.png">
+</p>
+<li><p align="justify" class="main">Finally ModelSim-Altera tool  opens up with simulated waveform. click on
+<b>Run all</b> icon on the tool box to display the waveform.</p></li>
+</ol>
+<center><h2><a class="header" href="#7-testing-the-design" id="7-testing-the-design"> 7. Testing the Design </a></h2></center>
+<hr />
+<p align="justify" class="main">
+What you see below is the simulation&nbsp; waveform obtained in ModelSim. Consider
+the Verilog design, from the waveform, we can see that when <b>s1 = 0</b> and <b>s2 = 0</b>
+the output <b>z = 0</b>. When <b>s1 = 0</b> and <b>s2 = 1</b> the output <b>z = 1</b>. When <b>s1 = 1</b> and <b>s2 = 0</b> the output 
+<b>z = 1</b>. When <b>s1 = 1</b> and <b>s2 = 1</b> the output <b>z= 0</b>. This is the logic of a XOR Gate. The same can be observed in the VHDL
+design.Hence the design has been verified.</p>
+<h3><a class="header" href="#71-simulation-waveform-of-the-verilog-design" id="71-simulation-waveform-of-the-verilog-design"> 7.1 Simulation waveform of the Verilog Design </a></h3>
+<p align="center">
+  <img src="basic_resources/./images/TWS/simulation_waveform_verilog/Simulation_waveform.png">
+</p>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<p><u><center><h2><a class="header" href="#ripple-carry-adder" id="ripple-carry-adder"> Ripple Carry Adder </a></h2></center></u></p>
+<center><h2><a class="header" href="#1-introduction-center" id="1-introduction-center"> 1. Introduction </center></a></h2>
+<hr />
+<p align="justify" class="main">Full Adder is an adder which adds three inputs and produces two outputs. The first two inputs
+are A and B and the third input is an input carry, C-IN. The output carry is designated as
+C-OUT and the Sum output is designated as S.</p>
+<p align="justify" class="main">Multiple full adder circuits can be cascaded in parallel to add an N-bit number. For an N-
+bit parallel adder, there must be N number of full adder circuits. A ripple carry adder is a logic
+circuit in which the carry-out of each full adder is the carry in of the succeeding next most
+significant full adder. It is called a ripple carry adder because each carry bit gets rippled into
+the next stage. We obtain an output carry (C-OUT) and an N- bit sum (S).</p><br />
+<p>For this project we will be using the full adder design for our 2-bit ripple carry adder.</p>
+<p align="center">
+  <img src="basic_resources/./images/RCA/circuit_diagram.png", width = 350, height=250>
+</p>
+<center>Figure 1: Full Adder</center><br />
+<p align="center">
+  <img src="basic_resources/./images/RCA/ripple.png", width = 350, height=250>
+</p>
+<center>Figure 2: 2-bit Ripple Carry Adder</center> <br /><br />
+<table><thead><tr><th>A</th><th>B</th><th>Cin</th><th>Sum</th><th>Carry</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+</tbody></table>
+<center>Fig. Truth Table for Full Adder </center>
+<center><h2><a class="header" href="#2-verilog-codes-center" id="2-verilog-codes-center">  2. Verilog Codes </center></a></h2>
+<hr />
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/91_2zQr5P2w?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<h3><a class="header" href="#21-rtl-description---full-adder" id="21-rtl-description---full-adder"> 2.1 RTL Description - Full Adder</a></h3>
+<pre><code class="language-verilog">// Verilog code for Full Adder
+// Define Full Adder module
+module Full_adder (
+input a,b, c_in , // Define input ports a, b and c_in
+output sum , c_out ); // Define output ports sum and c_out
+assign sum = a ^ b ^ c_in ; // Define Sum logic
+assign c_out = ((a &amp; b)| ( c_in &amp; (a ^ b ))); // Define Carry_out logic
+endmodule
+</code></pre>
+<h3><a class="header" href="#22-rtl-description---ripple-carry-adder" id="22-rtl-description---ripple-carry-adder"> 2.2 RTL Description - Ripple Carry Adder</a></h3>
+<pre><code class="language-verilog">// Verilog code for 2 bit ripple_carry_adder
+// Define module
+module Ripple_Carry_Adder (
+
+input [ 1 : 0 ]a,b,
+input cin , // Define all input ports
+output [ 1 : 0 ]Sum ,
+output C_Out ); // Define all ouput ports
+wire c1; // Define intermediate carry as c1
+
+Full_adder FA0(a[ 0 ] ,b[ 0 ] ,cin ,Sum[ 0 ] ,c1 ); // instantiate full_adder (FA0)
+Full_adder FA1(a[ 1 ] ,b[ 1 ] ,c1 ,Sum[ 1 ] ,C_Out ); // instantiate full_adder (FA1)
+
+endmodule
+</code></pre>
+<h3><a class="header" href="#23-testbench" id="23-testbench"> 2.3 Testbench</a></h3>
+<pre><code class="language-verilog">// Verilog code for Test bench
+// Define module
+module Ripple_Carry_Adder_tb ;
+reg [ 1 : 0 ]a; // Define all I/O ports
+reg [ 1 : 0 ]b;
+reg cin;
+wire [ 1 : 0 ]Sum ;
+wire C_Out ;
+// Map all th I/O ports with DUT
+Ripple_Carry_Adder uut (.a(a) , .b(b) , .cin(cin) , .Sum(Sum) , . C_Out ( C_Out ));
+initial begin // Initialize the pins with different combination of inputs .
+
+a=2' b01 ; b=2' b11; cin =1' b1; # 100;
+a =2' b11; b=2' b11; cin =1' b1; # 100;
+a =2' b10; b=2' b01; cin =1' b0; # 100;
+a =2' b00; b=2' b11; cin =1' b0; # 100;
+end // End of initial block
+
+endmodule
+</code></pre>
+<center><h2><a class="header" href="#3-implementing-on-quartus-prime-center" id="3-implementing-on-quartus-prime-center">  3. Implementing on Quartus Prime </center></a></h2>
+<hr />
+<p>Follow the below steps :</p>
+<ol>
+<li>Start a <b>New Project</b> in Quartus Lite software.</li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img1.png", width=700, height=500>
+</p> 
+<center>Figure 3: Creating New Project</center><br />
+<li><p align="justify" class="main">You will see this screen after completing all steps. For detailed steps refer the <b>Getting Started with Quartus</b> section from Task 0.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img2.png", width=700, height=500>
+</p> 
+<center>Figure 4: Summary</center><br />
+<li><p align="justify" class="main">We will be using <b>Verilog HDL</b> Code throughout this project. Create a <b>New Verilog HDL file.</b></p></li>
+<li><p align="justify" class="main">Type the code for full adder in this file.</p></li>  
+<li><p align="justify" class="main">Go to <b>File→Save as</b> and save the file.</p></li>
+<blockquote>
+<p><em><strong>Note:</strong> File name should be same as entity name.</em></p>
+</blockquote>
+<li><p align="justify" class="main">Now, Create a <b>New Verilog HDL file</b> again and type the code for 2-bit Ripple Carry Adder in this file.</p></li>
+<li>Go to <b>File→Save as</b> and save the file.</li>
+<li><p align="justify" class="main">Goto <b>Project→Set as Top-Level Entity.</b> The <b>ripple carry adder</b> file is our main
+file and make sure you have selected this file while setting the top level entity.</p></li>
+<li>Goto <b>Processing→Start Compilation.</b></li>
+<li><p align="justify" class="main">You can verify whether all the files are compiled successfully by checking the highlighted
+tabs i.e. <b>Messages</b> and <b>Tasks</b> tab.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img8.png">
+</p>
+</ol>
+<center><h2><a class="header" href="#4-rtl-circuit-of-the-implemented-design-center" id="4-rtl-circuit-of-the-implemented-design-center">  4. RTL Circuit of the implemented design </center></a></h2>
+<hr />
+<p align="justify" class="main">
+The Figure shown in step 2 below shows the RTL design of the ripple carry adder circuit. Here
+you can see 2 full adder modules are used. The design for these modules is incorporated from
+the full adder file.</p>
+<p><b>Steps to get RTL circuit.</b></p>
+<ol>
+<li> Goto <b>Tools→Netlist Viewers→RTL Viewer.</b></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img9.png">
+</p>
+<li>The below figure shows the equivalent RTL circuit of full adder.</li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img10.png", width=600, height=300>
+</p>
+</ol>
+<center><h2><a class="header" href="#5-implementing-on-modelsim-center" id="5-implementing-on-modelsim-center">  5. Implementing on Modelsim </center></a></h2>
+<hr />
+<p align="justify" class="main">For more detailed procedure on using ModelSim, refer <b>Getting Started with Quartus</b> section from Task 0. You can find Verilog HDL TestBench code
+below.</p>
+<ol>
+<li><p align="justify" class="main">Create a New Verilog HDL file in Quartus Prime. Type in the TestBench code provided in this
+ document and save the file with the same name as the module name.</p></li>
+<li> Go to <b>Assignments→Settings</b>.</li>
+<li><p align="justify" class="main">Navigate to <b>Simulation</b> under <b>EDA Tool Settings</b>. Set the language as Verilog HDL. Select
+<b>Compile TestBench</b> and then click on <b>Test Benches.</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img24.png">
+</p>
+<li>Click on <b>New</b>, this opens another dialogue box.</li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img25.png">
+</p>
+<li><p align="justify" class="main">Now type in the TestBench name(In this design , its <b>tb_ripple_carry_adder</b>). Now click on the highlighted Browse button.Find the TestBench file(it can be found in the project directory) and click on <b>Open</b>. Now click on <b>Add</b>, then <b>OK</b>.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img26.png">
+</p>
+<br />
+</ol>
+<p><b>Functional Simulation using NativeLink Feature.</b></p>
+<ol>
+<li> Go to <b>Processing→Start Compilation.</b></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img7.png">
+</p>
+<li><p align="justify" class="main">Go to <b>Tools → Run Simulation Tool → RTL Simulation</b> to automatically run the EDA simulator(ModelSim-Altera) and to compile all necessary design files.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img28.png">
+</p>
+<li><p align="justify" class="main">Finally ModelSim-Altera tool opens up with simulated waveform. click on <b>Run all</b> icon
+on the tool box to display the waveform.</p></li>
+<blockquote>
+<p><em><strong>Note:</strong> If you cannot see the waveform, Click on the waveform window and select the <b>Zoom all</b> option.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img29.png">
+</p>
+</ol>
+<center><h2><a class="header" href="#6-testing-the-design-center" id="6-testing-the-design-center">  6. Testing the Design </center></a></h2>
+<hr />
+<h3><a class="header" href="#61-simulation-waveform-of-the-vhdl-design" id="61-simulation-waveform-of-the-vhdl-design"> 6.1 Simulation waveform of the VHDL Design</a></h3>
+<p align="justify" class="main">The Result shown below can be verified by comparing it with the Truth Table provided in <b>Introduction</b> section. You can observe individual bits of a particular signal by clicking on the ’+’ icon.</p>
+<p align="center">
+  <img src="basic_resources/./images/RCA/img30.png">
+</p>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#buseven--segment--displayucenter" id="buseven--segment--displayucenter"><b><u>Seven  Segment  Display</u></center></a></h2></b>
+<center><h2><a class="header" href="#1-introduction-1" id="1-introduction-1"> 1. Introduction</a></h2></center>
+<hr />
+<p align="justify" class="main">
+The Seven Segment display has seven LEDs arranged into the number eight.  They  are  both cost-effective and easy to use.  The Figure 1 shows a standard seven-segment 
+display.</p>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Display/SevenLEDs.png">
+</p> 
+<center>Figure 1:  Seven Segment Display</center>
+<p align="justify" class="main">There  are  two  types  of  seven-segment  displays,  <b>Common  Anode</b> and <b>Common Cathode.</b> The  Internal  structure  of  both  these  types  are  identical  except  for  
+the  polarity  of  the  LEDs and common terminal.  The diagram below shows the internal structure of the common cathode seven-segment display(the one is used in this tutorial) and common anode 
+seven-segment display.</p>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Circuit/commoncathode.jpg">
+</p> 
+<center>Figure 2:  Seven Segment Display with Common Cathode</center><br />
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Circuit/commonannode.jpg">
+</p> 
+<center>Figure 3:  Seven Segment Display with Common Anode</center><br />
+<ul>
+ <li><p align="justify" class="main">The Common Cathode Display (CCD) – In the common cathode display, all the 
+cathode connections  of  the  LED’s  are  joined  together  to  logic  “0”  or  ground. 
+The  individual segments  are  illuminated  by  application  of  a  “HIGH”,  logic  “1”  signal 
+ to  the  individual
+Anode terminals.</p></li>
+<li><p align="justify" class="main">The Common Anode Display (CAD) – In the common anode display, all the anode con-
+nections  of  the  LED’s  are  joined  together  to  logic  “1”  and  the  
+individual  segments  are
+illuminated by connecting the individual Cathode terminals to a “LOW”, logic 
+“0”  signal.</p></li>
+</ul>
+<p align="justify" class="main">But, seven segment display does not work by directly supplying voltage to different segments of LEDs. First, our decimal number is changed to its BCD equivalent signal 
+then the BCD to seven segment decoder converts that signals to the a suitable format which is then fed to seven segment display.<br />
+This BCD to seven segment decoder has four input lines (A, B, C and D) and 7 output lines (a,  b,  c,  d,  e,  f and g),  this output is given to seven segment LED 
+display which displays the decimal number depending upon inputs.</p>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Circuit/bcd.png">
+</p> 
+<center>Figure 4:  Design of BCD Decoder 4:7</center><br />
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/tabl1.png">
+</p> 
+<center>Truth Table for Seven Segment Display</center>
+<center><h2><a class="header" href="#2-code-center" id="2-code-center">2. Code </center></a></h2>
+<hr />
+<h3><a class="header" href="#21--verilog--hdl--code--for--seven--segment-display" id="21--verilog--hdl--code--for--seven--segment-display"> 2.1  Verilog  HDL  code  for  Seven  Segment Display</a></h3>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/hMh8DQBPtUQ?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<pre><code class="language-verilog">/// Verilog code for sevent segment display
+// Define module
+
+module seven_segment (
+
+input [3:0]bcd , // Define all I/O ports
+output reg [6:0] display );
+
+// Define Always block ,this block is executed every time the
+// input BCD value changes .
+always @ ( bcd )
+begin
+
+case (bcd )
+4’ b0000 : display &lt;=7 ’ b1111110 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (0)
+4’ b0001 : display &lt;=7 ’ b0110000 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (1)
+4’ b0010 : display &lt;=7 ’ b1101101 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (2)
+4’ b0011 : display &lt;=7 ’ b1111001 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (3)
+4’ b0100 : display &lt;=7 ’ b0110011 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (4)
+4’ b0101 : display &lt;=7 ’ b1011011 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (5)
+4’ b0110 : display &lt;=7 ’ b1011111 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (6)
+4’ b0111 : display &lt;=7 ’ b1110000 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (7)
+4’ b1000 : display &lt;=7 ’ b1111111 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (8)
+4’ b1001 : display &lt;=7 ’ b1111011 ;// output port ’display ’ is assigned with
+// seven segment equivalent of input BCD (9)
+
+default : display &lt;=7 ’ b0000000 ;
+endcase // end of case block
+
+end // end of always block
+endmodule
+</code></pre>
+<h2><a class="header" href="#test-bench" id="test-bench">Test Bench </a></h2>
+<h3><a class="header" href="#22--verilog--hdl-test--bench--code--for--seven--segment--display" id="22--verilog--hdl-test--bench--code--for--seven--segment--display"> 2.2  Verilog  HDL Test  Bench  code  for  Seven  Segment  Display</a></h3>
+<pre><code>/// Verilog code for test bench of sevensegment
+// Define module
+module tb_seven_segment ;
+
+reg [3:0] bcd ; reg clk ; // Define the input
+wire [6:0] display ; // Define the outputs
+// Map the I/O ports with UUT
+seven_segment uut (. bcd (bcd ) ,. display ( display ));
+
+// Define Initial block
+initial begin
+
+bcd =4 ’ b0000 ; // Initialise the input ’bcd ’ value to ’0’
+
+end
+
+// Initialize input ports with different combination of BCD data
+initial begin
+
+bcd = 4’ b0001 ;#100;
+bcd = 4’ b0011 ;#100;
+bcd = 4’ b1000 ;#100;
+bcd = 4’ b1001 ;#100;
+#100;
+
+end // end of initial block .
+endmodule
+</code></pre>
+<center><h2><a class="header" href="#3-implementing-on-quartus-ii-center" id="3-implementing-on-quartus-ii-center">3. Implementing on quartus II </center></a></h2>
+<hr />
+<p align="justify" class="main">For  in-depth  guide  for  creating  a  <b>New  Project</b>  follow  <b>Getting Started with Quartus</b> section from Task 0. Verilog HDL code is provided in this 
+tutorial.</p>
+<ol>
+<li>Create a <b>New Project</b> with the following settings.</li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create1.png">
+ </p>
+<center>Figure 5:  Project Setting</center><br />
+<li>Create  a  <b>New  Verilog HDL  file</b>.   As  we  will  be  demonstrating using  Verilog HDL code  so  select Verilog HDL  file. Use  the  code  for  Seven  Segment Display mentioned  above  in the  code  section in this document.</li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/vhdl.png">
+</p> 
+<center>Figure 6:  Create a VHDL file</center><br />
+<li><p align="justify" class="main">Go to <b>File Save as</b>. Enter the Name of file (it should be same as module/entity name), Enter correct file extension, for VHDL it is <b>.vhd</b> 
+and for Verilog HDL it is <b>.v</b> and then
+Click on <b>Save.</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create3.png">
+</p> 
+<center>Figure 7:  Save the file</center><br />
+<li><p align="justify" class="main">Goto Project menu <b>Set as Top-Level  Entity</b>. The  Seven_Segment_SDisplay file  is  our main file and make sure you have selected this file while setting the top level 
+entity.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create4.png">
+</p> 
+<center>Figure 8:  Assign Top level Entity</center><br />
+<li><p align="justify" class="main">Goto <b>Processing Start  Compilation</b>.  It takes sometime to complete. You can verify whether  all  the  files  are  compiled  successfully  by  checking  the highlighted  tabs  i.e. <b>Messages and Tasks tab.</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create5.png">
+</p> 
+<center>Figure 9:  Verification</center>
+</ol>
+<center><h2><a class="header" href="#4-rtl-circuit-of-the-implemented-designcenter" id="4-rtl-circuit-of-the-implemented-designcenter"> 4. RTL Circuit of the implemented design</center></a></h2>
+<hr />
+<p align="justify" class="main">
+The Figure shown in step 2 below shows the RTL design of the Seven Segment 
+Display circuit that  we  design  using  the  above  files.  Here  we  can  7  select  modules  
+i.e  2:1  Muliplier,  and  one output and input block.  The select lines for the Multiplier are from the 4-Bit 
+DataBus input and the 7-Bit DataBus is the data line.  If the input and the select lines 
+matches for a particular
+Multiplier the the its 7 bit data is passed to the output.</p>
+<p><b>Steps  to  get  RTL  circuit.</b></p>
+<ol>
+<li>Goto <b>Tools→Netlist Viewers→RTL Viewer</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create6.png">
+</p> 
+<center>Figure 10:  Start RTL Viewer</center><br />
+<li><p align="justify" class="main">The below figure shows the equivalent RTL circuit of BCD decoder (4:7) or 
+the design of Seven Segment Display using behavioral modelling.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create7.png">
+</p> 
+<center>Figure 11:  RTL Design for Seven Segment Display</center>
+</ol>
+<center><h2><a class="header" href="#5-implementing-on-modelsimcenter" id="5-implementing-on-modelsimcenter"> 5. Implementing on Modelsim</center></a></h2>
+<hr />
+<p align="justify" class="main">
+For more detailed procedure on using ModelSim, refer <b>Getting Started with Quartus section</b> from Task 0. 
+You can find Verilog HDL Testbench code below. </p>
+<ol>
+<li> Create a <b>New  Verilog HDL  file</b>.  Type in the Testbench code provided in this 
+document and save the file with the same name as the module name.</li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Project/Create11.png">
+</p> 
+<center>Figure 12:  Create a Test Bench</center><br />
+<li>Go to <b>Assignments→Settings</b>.</li>
+<li><p align="justify" class="main">Navigate to <b>Simulation</b> under <b>EDA  Tool  Settings</b>.Set the language as VHDL. 
+Select <b>Compile Test Bench</b> and then click on <b>Test Benches</b>.  You can find a detailed 
+tutorial for setting a Test Bench  file for simulation in the  <b>Getting Started with Quartus</b> section from Task 0.</p></li>
+<li><p align="justify" class="main">Click on <b>Processing Start Compilation</b>. This process will check for any
+illegal statement occured in any of the files and give the error messages in the Messages 
+section.</p></li>
+</ol>
+<h3><a class="header" href="#51-without-testbench" id="51-without-testbench"> 5.1 Without TestBench</a></h3>
+<p align="justify" class="main">
+We  can  simulate  our  design  without  using  a  testbench  file  by  using creating  a  University Program  VWF file.  You can find detailed steps to create and add Input and 
+Output nodes in this files in the Task 0 document.</p>
+<ol>
+<li>Assign  clock  pulse  to  the  inputs  BCDNos[0  to  3]  as per  the given  table  and  run  the simulation.</li>
+<table><thead><tr><th>Input</th><th>Clock</th></tr></thead><tbody>
+<tr><td>DisplayLEDs[0]</td><td>50ns</td></tr>
+<tr><td>DisplayLEDs[1]</td><td>100ns</td></tr>
+<tr><td>DisplayLEDs[2]</td><td>200ns</td></tr>
+<tr><td>DisplayLEDs[3]</td><td>400ns</td></tr>
+</tbody></table>
+<center>Clock Pulse For Inputs</center>
+<li><p align="justify" class="main">After  running  the  simulation  you  can  see  the  following  results, also  you  can  notice  for BCDNos "1010" to "1111" the output is zero because we mention the condition for 
+input greater than 9 the output is null or zero.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation5.png">
+</p> 
+<center>Figure 13:  Output Waveform</center><br />
+</ol>
+<b>Expanded form of above image</b>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation6.png">
+</p> 
+<center>Figure 14:  Expanded Output Waveform</center>
+<h3><a class="header" href="#52--functional--simulation--using--nativelink--feature" id="52--functional--simulation--using--nativelink--feature"> 5.2  Functional  Simulation  using  NativeLink  Feature</a></h3>
+<ol>
+<li><p align="justify" class="main">Then Go to <b>Tools -> Run Simulation Tool -> RTL Simulation</b> to automatically run the EDA simulator(ModelSim-Altera) and to compile all necessary design files.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation1.png">
+</p> 
+<center>Figure 15:  Start RTL Simulation</center><br />
+<li><p align="justify" class="main">Finally ModelSim-Altera tool opens, Add the I/O pins as shown in the below figure.  Double click on the testbench 
+file under ’Library’ section,this adds the signals under ’Object’ section. Start the simulation and add the test bench file.Then select all the signals (A 
+, B and C) and add it to ’wave’section.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation2.png">
+</p> 
+<center>Figure 16:  Select TestBench file</center><br />
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation3.png">
+</p> 
+<center>Figure 17:  Add I/O Signals</center><br />
+<li>Start the simulation by clicking on the run all button in tool bar.</li>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation4.png">
+</p> 
+<center>Figure 18:  Simulation</center><br />
+<li><p align="justify" class="main"><b>Navigating  the  simulation</b>   At this point you should have successfully 
+run the simulation,  but the waveform window is rather small and hard to see.  We can move 
+around in the simulation and see the value of the signals.  Look for the cursor, a 
+yellow vertical line in the waveform viewer, with the time in yellow at the bottom.  You can 
+use this line to move left or right in the waveform viewer and also zoom-in and zoom-out.</p></li>
+</ol>
+<center><h2><a class="header" href="#6-testing-the-designcenter" id="6-testing-the-designcenter"> 6. Testing the Design</center></a></h2>
+<hr />
+<h3><a class="header" href="#61-----simulation--waveform--of--our--design" id="61-----simulation--waveform--of--our--design"> 6.1     Simulation  waveform  of  our  Design</a></h3>
+<p>The Result shown below can be verified by comparing it with the Truth Table.</p>
+<p align="center">
+  <img src="basic_resources/./images/7_seg/Simulation/Simulation4.png">
+</p> 
+<center>Figure 19:  Final Output Waveform</center><br />
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<p><u><center><h2><a class="header" href="#arithmetic-logic-unit" id="arithmetic-logic-unit"> Arithmetic Logic Unit </a></h2></center></u></p>
+<center><h2><a class="header" href="#1-introduction-center-1" id="1-introduction-center-1"> 1. Introduction </center></a></h2>
+<hr />
+<p align="justify" class="main">An arithmetic logic unit (ALU) is a digital circuit used to perform arithmetic and logic operations. 
+It represents the fundamental building block of the central processing unit (CPU) of
+a computer. Modern CPUs contain very powerful and complex ALUs. In addition to ALUs,
+modern CPUs contain a control unit (CU).</p>
+<p align="justify" class="main">Most of the operations of a CPU are performed by one or more ALUs, which load data from
+input registers. A register is a small amount of storage available as part of a CPU. The control
+unit tells the ALU what operation to perform on that data, and the ALU stores the result in
+an output register. The control unit moves the data between these registers, the ALU, and
+memory.</p>
+<h3><a class="header" href="#11-problem-statement" id="11-problem-statement"> 1.1 Problem Statement.</a></h3>
+<p align="justify" class="main">To Design an 8-bit ALU which performs different set of Arithmetic and logical operations based
+on the select input ’s’.It includes writing, compiling and simulating Verilog code in Quartus II
+and ModelSim respectively.</p>
+<h3><a class="header" href="#12-block-diagram-8-bit-alu" id="12-block-diagram-8-bit-alu"> 1.2 Block Diagram 8-bit ALU.</a></h3>
+<p align="center">
+  <img src="basic_resources/./images/ALU/NEWALUBLOCK.png", width=300, height=300>
+</p>
+<center>Figure 1: Block Diagram of 8bit ALU</center>
+<h3><a class="header" href="#13-implementation-table-of-8-bit-alu" id="13-implementation-table-of-8-bit-alu"> 1.3 Implementation Table of 8-bit ALU.</a></h3>
+<p align="justify" class="main">The below table indicates the Arithmetic and Logical operations performed based on the select
+input ’s’ and also the output ’y’ obtained for for the given set of input ’a’ and ’b’. The
+Arithmetic opertaions that are performed here are:</p>
+<ul>
+<li>Addition</li>
+<li>Subtraction</li>
+<li>Multiplication</li>
+<li>Division</li>
+<li>Increment</li>
+<li>Decrement</li>
+</ul>
+Some of the Logical operations performed here are:<br />
+<ul>
+<li>Bitwise AND & NAND</li>
+<li>Bitwise OR & NOR</li>
+<li>Bitwise NOR & XNOR</li>
+<li>Shift Right & Shift Left</li>
+<li>Rotate Right & Rotate Left</li>
+</ul>
+<table><thead><tr><th>s</th><th>operation</th><th>a</th><th>b</th><th>y</th><th>carry</th><th>zero</th></tr></thead><tbody>
+<tr><td>0000</td><td>Addition</td><td>11101110</td><td>11101110</td><td>00000000 11011100</td><td>1</td><td>0</td></tr>
+<tr><td>0001</td><td>Subtraction</td><td>11101110</td><td>11101110</td><td>00000000 00000000</td><td>0</td><td>1</td></tr>
+<tr><td>0010</td><td>Increment</td><td>11101110</td><td>11101110</td><td>00000000 11101111</td><td>0</td><td>0</td></tr>
+<tr><td>0011</td><td>Decrement</td><td>11101110</td><td>11101110</td><td>00000000 11101101</td><td>0</td><td>0</td></tr>
+<tr><td>0100</td><td>Multiplication</td><td>11101110</td><td>11101110</td><td>11011101 01000100</td><td>0</td><td>0</td></tr>
+<tr><td>0101</td><td>Division</td><td>11101110</td><td>11101110</td><td>00000000 00000001</td><td>0</td><td>0</td></tr>
+<tr><td>0110</td><td>Bitwise AND</td><td>11101110</td><td>11101110</td><td>00000000 11101110</td><td>0</td><td>0</td></tr>
+<tr><td>0111</td><td>Bitwise OR</td><td>11101110</td><td>11101110</td><td>00000000 11101110</td><td>0</td><td>0</td></tr>
+<tr><td>1001</td><td>Bitwise XOR</td><td>11101110</td><td>11101110</td><td>00000000 00000000</td><td>0</td><td>1</td></tr>
+<tr><td>1010</td><td>Bitwise NOR</td><td>11101110</td><td>11101110</td><td>00000000 00010001</td><td>0</td><td>0</td></tr>
+<tr><td>1001</td><td>Bitwise XNOR</td><td>11101110</td><td>11101110</td><td>00000000 00010001</td><td>0</td><td>0</td></tr>
+<tr><td>1011</td><td>Shift Left</td><td>11101110</td><td>11101110</td><td>00000000 11111111</td><td>0</td><td>0</td></tr>
+<tr><td>1100</td><td>Shift Right</td><td>11101110</td><td>11101110</td><td>00000000 11011100</td><td>1</td><td>0</td></tr>
+<tr><td>1101</td><td>Rotate Right</td><td>11101110</td><td>11101110</td><td>00000000 01110111</td><td>0</td><td>0</td></tr>
+<tr><td>1110</td><td>Rotate Right</td><td>11101110</td><td>11101110</td><td>00000000 01110111</td><td>0</td><td>0</td></tr>
+<tr><td>1111</td><td>Rotate Left</td><td>11101110</td><td>11101110</td><td>00000000 11011101</td><td>0</td><td>0</td></tr>
+</tbody></table>
+<br />
+<center>Table 1: Implementation Table of 8-bit ALU</center>
+<center><h2><a class="header" href="#2-verilog-hdl-codes-for-8-bit-alucenter" id="2-verilog-hdl-codes-for-8-bit-alucenter">2. Verilog HDL Codes for 8-bit ALU</center></a></h2>
+<hr />
+<h3><a class="header" href="#21-rtl-description" id="21-rtl-description"> 2.1 RTL Description</a></h3>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/XKGkmjUrY8Y?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<pre><code class="language-verilog">// Verilog Design for a 8 -bit ALU .
+/* This design will Perform Arithmetic and Logical operations
+based on the select input */
+// Define module .
+module ALU (
+input [ 7 : 0 ]a,b,
+input [ 3 : 0 ]s, // Define Inputs a,b and select line input s
+input en ,clk , // Define clock and enable signal
+output [ 15 : 0 ] y, // Define 16 bit ALU output
+output carry , zero // Define Flag output
+);
+reg [ 7 : 0 ] a_in ; // Local registers for input 'a '.
+reg [ 7 : 0 ] b_in ; // Local registers for input 'b '.
+reg [ 1 : 0 ] flags ;
+/* Local register to store carry bit in flags [0] &amp;
+zero flag bit in flags [1] */
+reg [ 15 : 0 ] out_y ; // Local register to store 16 bit output 'y '.
+
+always @( posedge clk , negedge en)
+begin
+if(en ==1) // if en =1 , reset all outputs
+begin
+a_in &lt;= 0;
+b_in &lt;= 0;
+y &lt;= 0;
+carry &lt;= 0;
+zero &lt;= 0;
+end
+else
+begin
+a_in &lt;= a; // if en =1 , latch all output flit flops
+b_in &lt;= b;
+y &lt;= out_y ;
+carry &lt;= flags [ 0 ] ;
+zero &lt;= flags [ 1 ] ;
+end
+end
+
+always @ (a_in ,b_in ,s)
+begin
+flags = 2' b00; // set flags to zero
+case (s)
+4'd0:
+begin
+out_y ={8 'd0 ,( a_in + b_in )}; // addition
+flags [ 0 ] = out_y [ 8 ] ; // carry is set if generated .
+end
+4'd1:
+begin
+out_y ={8 'd0 ,( a_in - b_in )}; // Subtraction
+flags [ 0 ] = out_y [ 8 ] ; // carry is set if Borrow is taken .
+end
+4'd2:
+begin
+out_y ={8 'd0 ,( a_in + 1'b1 )}; // Increment
+flags [ 0 ] = out_y [ 8 ] ; // carry is set if generated .
+end
+4'd3: begin
+out_y ={8 'd0 ,( a_in - 1'b1 )}; // Decrement
+flags [ 0 ] = out_y [ 8 ] ; // carry is set if Borrow is taken .
+end
+4'd4: out_y =( a_in * b_in ); // Multiplication .
+4'd5: out_y =( a_in / b_in ); // Division
+4'd6: out_y ={8 'd0 ,( a_in &amp; b_in )}; // Bitwise AND
+4'd7: out_y ={8 'd0 ,( a_in | b_in )}; // Bitwise OR
+4'd8: out_y ={8 'd0 ,( a_in ^ b_in )}; // Bitwise XOR
+4'd9: out_y ={8 'd0 ,~( a_in &amp; b_in )}; // Bitwise NAND
+4' d10: out_y ={8 'd0 ,~( a_in | b_in )}; // Bitwise NOR
+4' d11: out_y ={8 'd0 ,~( a_in ^ b_in )}; // Bitwise XNOR
+4' d12:
+begin
+flags [ 0 ] = a_in [ 7 ] ; // Update carry flag
+out_y ={8 'd0 ,( a_in &lt; &lt;1)}; // Shift Left
+end
+4' d13: begin
+flags [ 0 ] = a_in [ 0 ] ; // Update carry flag
+out_y ={8 'd0 ,( a_in &gt; &gt;1)}; // Shift Right
+end
+4' d14: out_y ={8 'd0 , a_in [ 0 ] ,a_in [ 7 : 1 ] }; // right rotate
+4' d15: out_y ={8 'd0 , a_in [ 6 : 0 ] ,a_in [ 7 ] }; // left rotate
+default : out_y =16 ' d0;
+endcase
+if( out_y == 0)
+flags [ 1 ] = 1; // set zero flag if output is zero
+end // End of case structure .
+endmodule
+</code></pre>
+<h3><a class="header" href="#22-testbench-for-8-bit-alu" id="22-testbench-for-8-bit-alu"> 2.2 Testbench for 8-bit ALU.</a></h3>
+<pre><code class="language-verilog">// Verilog code for TestBench of 8 -bit ALU
+// Define module
+module tb_ALU ;
+reg [ 7 : 0 ]a; reg [ 7 : 0 ]b; reg [ 3 : 0 ]s; // Define I/O ports
+reg clk; reg en;
+wire [ 15 : 0 ]y;
+wire carry ;
+wire zero ;
+
+// Map all the I/O ports with DUT .
+ALU uut (.a(a) ,.b(b) ,.s(s) ,. en(en ) ,. clk(clk ) ,.y(y) ,. carry ( carry ) ,. zero ( zero ));
+
+// Initialise Input pins with 0
+initial begin
+a = 0;
+b = 0;
+s = 0;
+en =1;
+clk = 0;
+
+end
+always
+begin clk = ~clk ;#5; end // Generate a clock of period 10 units
+initial begin
+#50;
+
+a = 8' b11101110 ; // Initialise 8bit input value for a &amp; b.
+b = 8' b11101110 ;#29;
+
+// Initialise 's' value to perform different operations .
+
+s = 4' b0001 ;#30;
+s = 4' b0010 ;#30;
+en =0
+s = 4' b0001 ;#30;
+s = 4' b0010 ;#30;
+s = 4' b0011 ;#30;
+s = 4' b0100 ;#30;
+s = 4' b0101 ;#30;
+s = 4' b0110 ;#30;
+s = 4' b0111 ;#30;
+s = 4' b1000 ;#30;
+s = 4' b1001 ;#30;
+s = 4' b1010 ;#30;
+s = 4' b1011 ;#30;
+s = 4' b1100 ;#30;
+s = 4' b1101 ;#30;
+s = 4' b1110 ;#30;
+s = 4' b1111 ;#30;
+
+end // End of initial block
+endmodule // End of module .
+</code></pre>
+<center><h2><a class="header" href="#3-implementing-on-quartus-iicenter" id="3-implementing-on-quartus-iicenter"> 3. Implementing on quartus II</center></a></h2>
+<hr />
+<p>Follow the below steps :</p>
+<ol>
+<li><p align="justify" class="main">Start a <b>New Project</b> in Quartus Lite software</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/PRO IMG1.png">
+</p>
+<center>Figure 2: Creating New Project</center><br />
+<li><p align="justify" class="main">You will see this screen after completing all the steps. For detailed steps refer the <b>Getting Started with Quartus</b> section from Task 0.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/projimg2.png">
+</p>
+<center>Figure 3: Summary</center><br />
+<li><p align="justify" class="main">We will be using <b>Verilog</b> throughout this project. Create a <b>New Verilog HDL file</b>.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/PROJIMG3.png">
+</p>
+<center>Figure 4: New Verilog File</center><br />
+<li>Type the code for 8-bit ALU in this file.</li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/proentry.png">
+</p>
+<center>Figure 5: Verilog Code:ALU</center><br />
+<li>Go to <b>File→Save as</b> and save the file.</li>
+<blockquote>
+<p><em><strong>Note:</strong> File name should be same as module name.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/ALU/save4.png">
+</p>
+<center>Figure 6: Saving the file</center><br />
+<li><p align="justify" class="main">Go to <b>Project→Set as Top-Level Entity.</b> The <b>ALU</b> file is our main file and make
+sure you have selected this file while setting the top level entity.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/alusetnew2.png">
+</p>
+<center>Figure 7: Setting Top level entity</center><br />
+<li> Goto <b>Processing→Start Compilation.</b></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/startcompialu.png">
+</p>
+<center>Figure 8: Compiling the Design</center><br />
+<li><p align="justify" class="main">You can verify whether all the files are compiled successfully by checking the highlighted
+tabs i.e. <b>Messages</b> and <b>Tasks</b> tab.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/compilation done.png">
+</p>
+<center>Figure 9: Verification(Flow Summary)</center>
+</ol>
+<center><h2><a class="header" href="#4-rtl-circuit-of-the-implemented-design-center-1" id="4-rtl-circuit-of-the-implemented-design-center-1"> 4. RTL Circuit of the implemented design </center></a></h2>
+<hr />
+<p><b>Steps to get RTL circuit.</b></p>
+<ol>
+<li>Goto <b>Tools→Netlist Viewers→RTL Viewer.</b></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/compilation done.png">
+</p>
+<center>Figure 10: RTL Viewer</center><br />
+<li> The below figure shows the equivalent RTL circuit of 8-bit ALU.</li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/rtlalu new.png">
+</p>
+<center>Figure 11: RTL Design for 8-bit ALU</center>
+</ol>
+<center><h2><a class="header" href="#5-implementing-on-modelsimcenter-1" id="5-implementing-on-modelsimcenter-1">5. Implementing on Modelsim</center></a></h2>
+<hr />
+<p align="justify" class="main">For more detailed procedure on using ModelSim, refer <b>Getting Started with Quartus</b> section from Task 0. You can find Verilog HDL TestBench code
+below.</p>
+<ol>
+<li>Create a New Verilog file in Quartus Prime.Type in the TestBench code&nbsp; provided in this
+document and save the file with the same name as the module name</li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/test1.png">
+</p>
+<center>Figure 12: Save TestBench file</center><br />
+<li>Go to <b>Assignments→Settings</b>.</li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/test2.png">
+</p>
+<center>Figure 13: Settings</center><br />
+<li><p align="justify" class="main">Navigate to <b>Simulation</b> under <b>EDA Tool Settings</b>. Set the language as Verilog HDL. Select
+<b>Compile TestBench</b> and then click on <b>Test Benches</b>.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/test3.png">
+</p>
+<center>Figure 14: Adding the TestBench file</center><br />
+<li>Click on <b>New</b>, this opens another dialogue box.</li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/test4.png">
+</p>
+<center>Figure 15: Adding the TestBench file</center><br />
+<li><p align="justify" class="main">Now type in the TestBench name(In this design , its <b>tb_ripple_carry_adder</b>). Now click
+on the highlighted Browse button.Find the TestBench file(it can be found in the project
+directory) and click on <b>Open.</b> Now click on <b>Add</b>,then <b>OK</b>.</p></li><br />
+</ol>
+<p align="center">
+  <img src="basic_resources/./images/ALU/test5.png">
+</p>
+<center>Figure 16: Adding the TestBench file</center><br />
+<p><b>Functional Simulation using NativeLink Feature</b></p>
+<ol>
+<li> Go to <b>Processing→Start Compilation</b></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/posttest1.png">
+</p>
+<center>Figure 17: Compiling the project</center><br />
+<li><p align="justify" class="main"> Go to <b>Tools→Run Simulation Tool→RTL Simulation</b> to automatically run the EDA
+simulator (ModelSim-Altera) and to compile all necessary design files.</p></li>
+<blockquote>
+<p><em><strong>Note:</strong> If you cannot see the graph, Click on the waveform window and select the <b>Zoom all</b> option.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/ALU/posttest2.png">
+</p>
+<center>Figure 18: RTL Simulation</center><br />
+<li><p align="justify" class="main">Finally ModelSim-Altera tool opens up with simulated waveform. Click on <b>Run all</b> icon
+on the tool box to display the waveform.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/ALU/waveform1.png">
+</p>
+<center>Figure 19: RTL Simulation</center>
+</ol>
+<center><h2><a class="header" href="#6-simulation-results-center" id="6-simulation-results-center"> 6. Simulation Results </center></a></h2>
+<hr />
+<p><b>Simulation waveform of the Verilog Design</b><br></p>
+<p align="justify" class="main">The Result shown below can be verified by comparing it with the Truth Table
+provided in section 1.4 above. You can observe individual bits of a particular signal by clicking on the ’+’ icon.</p>
+<blockquote>
+<p><em><strong>Observation:</strong> Based on the select input <b>’s’</b> the opertion is performed on input <b>’a’</b> and <b>’b’</b> and
+the 16 bit result is generated on output line <b>’y’</b>.The <b>carry</b> flag is raised when carry is generated
+and <b>Zero</b> flag is raised if the result is zero during the operation.</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/ALU/waveform1n.png">
+</p>
+<center>Figure 20: Simulation waveform</center><br />
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#u-universal-shift-register-u" id="u-universal-shift-register-u"><u> Universal Shift Register </u></a></h2></center>
+<center><h2><a class="header" href="#1-introduction-2" id="1-introduction-2"> 1. Introduction</a></h2></center>
+<hr />
+<h3><a class="header" href="#11----what-is-a-register" id="11----what-is-a-register"> 1.1    What is a Register?</a></h3>
+<p align="justify" class="main">Flip flops can be used to store a single bit of binary data (1 or 0). However, in order to store multiple bits of data, 
+we need multiple flip flops. N flip flops are to be connected in an order to store n bits of data. A <b>Register</b> is a device which is used to 
+store such information. It is a group of flip flops connected in series used to store multiple bits of data.</p>
+<h3><a class="header" href="#12----shift-registers" id="12----shift-registers">1.2    Shift Registers</a></h3>
+<p align="justify" class="main">The information stored within these registers can be transferred with the help of
+<b>Shift Registers</b>. Shift Register is a group of flip flops used to store multiple bits
+of data. The bits stored in such registers can be made to move within the registers
+and in/out of the registers by applying clock pulses. An n-bit shift register can be
+formed by connecting n flip-flops where each flip flop stores a single bit of data.</p><br />
+Shift registers are basically of 4 types. These are:
+<ol>
+<li> Serial In Serial Out shift register</li>
+<li>Serial In parallel Out shift register</li>
+<li>Parallel In Serial Out shift register</li>
+<li>Parallel In parallel Out shift register</li>
+</ol>
+<h3><a class="header" href="#13----serial-in-serial-out-shift-register" id="13----serial-in-serial-out-shift-register">1.3    Serial-In Serial-Out Shift Register</a></h3>
+<p align="justify" class="main">The shift register, which allows serial input (one bit after the other through a single
+data line) and produces a serial output is known as Serial-In Serial-Out shift register.
+Since there is only one output, the data leaves the shift register one bit at a time in
+a serial pattern, thus the name Serial-In Serial-Out Shift Register.
+The logic circuit given below shows a serial-in serial-out shift register. The circuit
+consists of four D flip-flops which are connected in a serial manner. All these flip-
+flops are synchronous with each other since the same clock signal is applied to each
+flip flop.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/SISO.png">
+</p> 
+<center>Figure 1:  SISO Shift Register</center>
+<h3><a class="header" href="#14----serial-in-parallel-out-shift-register" id="14----serial-in-parallel-out-shift-register">1.4    Serial-In Parallel-Out Shift Register</a></h3>
+<p align="justify" class="main">The shift register, which allows serial input (one bit after the other through a single
+data line) and produces a parallel output is known as Serial-In Parallel-Out shift
+register.</p>
+<p align="justify" class="main">The logic circuit given below shows a serial-in-parallel-out shift register. The circuit
+consists of four D flip-flops which are connected. The clear (CLR) signal is connected
+in addition to the clock signal to all the 4 flip flops in order to RESET them. The
+output of the first flip flop is connected to the input of the next flip flop and so on.
+All these flip-flops are synchronous with each other since the same clock signal is
+applied to each flip flop.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/SIPO.png">
+</p> 
+<center>Figure 2:  SIPO Shift Register</center></center></center>
+<h3><a class="header" href="#15----parellel-in-serial-out-shift-register" id="15----parellel-in-serial-out-shift-register"> 1.5    Parellel-In Serial-Out Shift Register</a></h3>
+<p align="justify" class="main">The PISO(Parellel-in Serial-out) shift register has one of the most important appli-
+cation among the shift register, and it is to convert parellel data into serial data,
+which is extensively used in communication.<br />
+The circuit consists of four D flip-flops which are connected. The clock input is
+directly connected to all the flip flops but the input data is connected individually
+to each flip flop through a multiplexer at the input of every flip flop. The output of
+the previous flip flop and parallel data input are connected to the input of the MUX
+and the output of MUX is connected to the next flip flop. All these flip-flops are
+synchronous with each other since the same clock signal is applied to each flip flop.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/PISO.png">
+</p> 
+<center>Figure 3:  PISO Shift Register</center></center>
+<h3><a class="header" href="#16----parallel-in-parallel-out-shift-register" id="16----parallel-in-parallel-out-shift-register">1.6    Parallel-In Parallel-Out Shift Register</a></h3>
+<p align="justify" class="main">The shift register, which allows parallel input (data is given separately to each flip
+flop and in a simultaneous manner) and also produces a parallel output is known as
+Parallel-In parallel-Out shift register.</p>
+<p align="justify" class="main">The logic circuit given below shows a parallel-in-parallel-out shift register. The
+circuit consists of four D flip-flops which are connected. The clear (CLR) signal and
+clock signals are connected to all the 4 flip flops. In this type of register, there are no
+interconnections between the individual flip-flops since no serial shifting of the data
+is required. Data is given as input separately for each flip flop and in the same way,
+output also collected individually from each flip flop.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/PIPO.png">
+</p> 
+<center>Figure 4:  PIPO Shift Register</center>
+<h3><a class="header" href="#17----universal-shift-register" id="17----universal-shift-register"> 1.7    Universal Shift Register</a></h3>
+<p align="justify" class="main">A Universal shift register is a register is a combination of all the above 4 shift registers with. Universal shift registers are used as memory elements in computers. A
+Unidirectional shift register is capable of shifting in only one direction. A bidirectional shift register is capable of shifting in both the directions. The Universal shift
+register is a combination design of bidirectional shift register and a unidirectional shift register with parallel load provision.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/uni_operation.png">
+</p> 
+<center>Figure 5:  Choosing the operation through MUX select lines</center><br />
+<p align="center">
+  <img src="basic_resources/./images/USR/circuit diagram/universal.png">
+</p> 
+<center>Figure 6:  Universal Shift Register</center>
+<center><h2><a class="header" href="#2-verilog-hdl-code-for-universal-shift-register" id="2-verilog-hdl-code-for-universal-shift-register"> 2. Verilog HDL Code for Universal Shift Register</a></h2></center>
+<hr />
+<p align="justify" class="main">The Universal Shift Register has been implemented as it contains all different 
+types of shift registers in itself.</p>
+<h3><a class="header" href="#21----rtl-description" id="21----rtl-description"> 2.1    RTL Description</a></h3>
+<center><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/f2JAwlXH-c8?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></center>
+<pre><code class="language-verilog">module Universal_Shift_Register_Verilog(
+input [3:0]i, //Define pins for parellel input
+input [1:0]sel, //Define select line pins to choose the operation
+input clk,rst,il,ir, //Define clock,reset, serial input for
+//shift left and serial input for shift right
+
+output reg [3:0]out_bit); //Define output pins
+
+always @ (posedge clk, negedge rst ) //Execute the logic whenever positive edge of
+//clock or negative edge of Reset is encountered
+
+begin
+if(rst==0) //if rst = 0, then clear the output
+out_bit=4'b000;
+else
+begin
+case(sel) //check select lines to determine type of
+//operation
+2'b00:begin end //Retain the data
+2'b01:begin
+out_bit={ir,out_bit[3:1]}; //shift right operation
+end
+2'b10:begin
+out_bit={out_bit[2:0],il}; //Shift left operation
+end
+2'b11:begin
+out_bit = i; //parellel input-output operation
+end
+default:begin end
+endcase
+end
+end
+endmodule
+</code></pre>
+<h3><a class="header" href="#22-testbench" id="22-testbench">2.2 Testbench</a></h3>
+<pre><code class="language-verilog">module Universal_Shift_Register_tb;
+reg [3:0]i; reg[1:0]sel; reg clk; reg rst; reg il;reg ir; //Define all input ports
+wire [3:0]out_bit; //Define all output ports
+Universal_Shift_Register_Verilog uut(.i(i), //Map testbench ports with DUT ports
+
+.sel(sel),
+
+.clk(clk),
+.rst(rst),
+.out_bit(out_bit),
+.il(il),
+.ir(ir));
+
+initial begin
+rst = 1'b0; //Initialze values on all input pins
+clk = 0;
+ir = 0;
+il = 0;
+sel = 2'b00;
+i = 4'b0000;
+end
+always
+begin
+clk = ~clk; #5; //Define Clock operation
+end
+initial begin
+#50;
+rst = 1; #50 //Different Combinations of input
+ir = 1;
+sel = 2'b01;#10;
+ir = 0;#10;
+ir = 1;#10;
+ir = 0;#10;
+il = 1;
+sel = 2'b00;#50
+sel = 2'b10;
+il = 1;#10
+il = 0;#10
+il = 0;#10
+sel = 2'b11;#5
+i = 4'b1111;
+#100;
+end
+endmodule
+</code></pre>
+<center><h2><a class="header" href="#3-implementation-in-quartus-prime" id="3-implementation-in-quartus-prime"> 3. Implementation in Quartus Prime</a></h2></center>
+<hr />
+<p align="justify" class="main">To Implement the design in Quartus Software, follow these steps(For more 
+detailed information on the following steps, Refer <b>Getting Started with Quartus</b> section from Task 0.</p>
+<blockquote>
+<p><em><strong>Note:</strong>  The language used is Verilog HDL.</em></p>
+</blockquote>
+<ol>
+<li>Create a New Project using the Project Wizard.</li>
+<p align="center">
+  <img src="basic_resources/./images/USR/USR1.png">
+</p> 
+<center>Figure 7:  Project Summary</center></center><br />
+<li>Create a New Verilog File.</li>
+<p align="center">
+  <img src="basic_resources/./images/USR/Implementation_quartus/2.png">
+</p> 
+<center>Figure 8:  Creating a Verilog File</center><br />
+<li><p align="justify" class="main">Type in the Verilog code provided in this Document and save the file(make sure file name is same as module name).</p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/USR2.png">
+</p> 
+<center>Figure 9:  Code typed and saved</center><br />
+<blockquote>
+<p><strong>Note:</strong> If  module  name  is  different  from  project  name,  then  manually set the verilog file as Top-Level Module by:Right Click on <b>&lt;File_name&gt; -&gt; Set as Top-Level Entity</b></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/USR/USR3.png">
+</p> 
+<center>Figure 10:  Setting top-level entity</center><br />
+<li><p align="justify" class="main">Compile the Design either by double clicking <b>COMPILE DESIGN</b> or clicking on the <b>Play</b> button.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/USR4.png">
+</p> 
+<center>Figure 11:  Code compilation</center><br />
+<blockquote>
+<p><em><strong>Note:</strong> The Compilation is complete when you see these <b>Green Tick</b> marks.If even one of them have <b>Red Cross</b> it means the compilation has failed</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/USR/Implementation_quartus/4_1.png">
+</p> 
+<center>Figure 12:  Successful compilation</center><br />
+<li><p align="justify" class="main">Upon successful compilation, to view the RTL Circuit, Go to <b>TOOLS→NETLIST VIEWERS→RTL VIEWER.</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr5.png">
+</p> 
+<center>Figure 13:  Opening the RTL Viewer</center>
+</ol>
+<center><h2><a class="header" href="#4-rtl-circuit-of-the-implemented-design" id="4-rtl-circuit-of-the-implemented-design">4. RTL Circuit of the Implemented Design </a></h2></center>
+<hr />
+<p>The below RTL circuit is the result of our design:</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr6.png">
+</p> 
+<center>Figure 14:  RTL Circuit of Universal Shift Register</center>
+<center><h2><a class="header" href="#5-implementing-in-modelsim" id="5-implementing-in-modelsim"> 5. Implementing in ModelSim</a></h2></center>
+<hr />
+<p align="justify" class="main">The TestBench shown here is a Verilog TestBench. For more detailed procedure on
+using ModelSim, Refer <b>Getting Started with Quartus</b> section from Task 0.</p>
+<ol>
+<li>Create a new verilog file in Quartus Prime.</li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr9.png">
+</p> 
+<center>Figure 15:  Creating new verilog file</center><br />
+<li><p align="justify" class="main">Type in the Testbench code provided in this document and save the file with the same name as the module name.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr10.png">
+</p> 
+<center>Figure 16:  typing the testbench code</center><br />
+<li>Go to <b>ASSIGNMENTS→SETTINGS</b></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr11.png">
+</p> 
+<center>Figure 17:  opening settings</center><br />
+<li>Navigate to <b>SIMULATION</b> under <b>EDA TOOL SETTINGS</b></center></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/implementing_modelsim/4.png">
+</p> 
+<center>Figure 18:  Navigate to simulation settings</center><br />
+<li><p align="justify" class="main">Set the language (<b>FORMAT FOR OUTPUT NETLIST</b>) as Verilog HDL. Select <b>COMPILE TEST BENCH</b> and then click on <b>TEST BENCHES...</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/implementing_modelsim/5.png">
+</p> 
+<center>Figure 19:  Configuring the Settings</center><br />
+<li><p align="justify" class="main">Click on <b>NEW</b>, this opens another dialogue box. Now type in the testbench name(In this design , its <b>Universal_Shift_Register_tb</b>).  Now click on thehighlighted browse button</p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/implementing_modelsim/6_1.png">
+</p> 
+<center>Figure 20:  Adding the Tesbench file</center><br />
+<li><p align="justify" class="main">Find the testbench file(it can be found in the project directory) and click on <b>OPEN.</b></p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr13.png">
+</p> 
+<center>Figure 21:  Finding the file in the project directory</center><br />
+<li><p align="justify" class="main">Now click on <b>ADD</b>,then <b>OKAY</b>, then <b>OKAY</b> again and finally click on <b>APPLY</b></p></li>
+<blockquote>
+<p><em><strong>Note:</strong> The  <b>APPLY</b>  button  will  be  highlighted  after <b>OKAY</b>  has  been
+clicked on all previous windows</em></p>
+</blockquote>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr14.png">
+</p> 
+<center>Figure 22:  Finalising the testbench adding process</center><br />
+<li><p align="justify" class="main">To start the simulation, go to <b>TOOLS -> RUN SIMULATION TOOL -> RTL SIMULATION</b>. This will open ModelSim and display the simulation waveform.</p></li>
+<p align="center">
+  <img src="basic_resources/./images/USR/usr15.png">
+</p> 
+<center>Figure 23:  Running the Simulation</center>
+</ol>
+<center><h2><a class="header" href="#6-simulation-results" id="6-simulation-results"> 6. Simulation Results</a></h2></center>
+<hr />
+<p align="justify" class="main">The waveform shown below is the result of the simulation.
+Initially when rst=0, the output is reset to <b>0000</b>. After <b>50 ns, rst</b> is set and the
+register is in normal operation. When <b>sel = 00</b>, the register retains the previous
+data. At <b>0.1 ns, sel=01</b>, so the shift register is set to <b>’Shift right operation’</b>.
+At every consecutive clock cycle until <b>0.14 ns</b>, it can be seen that the shift register
+ouput is shifted right while the MSB is loaded with the value of <b>’ir’</b>. <b>At 0.14ns,sel=00</b>, so until <b>0.19ns</b>, the shift register retains the value. <b>At 0.19 ns, sel=10</b>,
+The shift register is set to <b>Shift left Operation</b> and at each consecutive clock
+cycle, the Shift register shifts the data left and loads the LSB with data on the
+’il’ pin. Finally, at <b>0.22 ns, sel=11</b>, this sets the shift register to <b>Parellel input mode</b>, so for every consecutive clock cycle, the shift register is updated with the
+data on the 4 bit parellel input ’i’.</p>
+<p align="center">
+  <img src="basic_resources/./images/USR/usrsimu.png">
+</p> 
+<center>Figure 24:  Simulation Waveform</center>
+<!-- <center><img src="http://mooc.e-yantra.org/img/eYantra_logo.svg" alt="e-yantra_logo" style="scale:75%;" /></center> -->
+<style>
+.back{
+	position: fixed;
+	width: 250px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+    margin-top: auto; 
+    margin-left: auto; 
+	opacity: 0.15;
+    z-index: -1;
+	}
+</style>
+<!-- <img src="http://mooc.e-yantra.org/img/EyantraLogoMini.png" class="back"> -->
+<center><h2><a class="header" href="#advanced-resources" id="advanced-resources">Advanced Resources</a></h2></center>
+<hr>
+<p>In this section you will learn : </p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=6sM-J7QMO1g&amp;feature=youtu.be">How to Use PLL IP in Quartus</a> </li>
+<li><a href="https://www.youtube.com/watch?v=i6VWKUMElH0&amp;feature=youtu.be">How to Use Multipliers in Quartus</a></li>
+<li><a href="https://www.youtube.com/watch?v=LiFB1OuWb9A&amp;feature=youtu.be">How to Use Dividers in Quartus</a> </li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-145861739-2', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
